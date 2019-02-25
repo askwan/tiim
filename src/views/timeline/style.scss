@@ -1,0 +1,45 @@
+.time-svg{
+  background-color: #eee;
+}
+
+g.x.axis line{
+  stroke: #999;
+  stroke-width: 0.2;
+}
+g.cutline-group .cutline{
+  stroke: #999;
+  stroke-width: 0.5;
+}
+.y{
+  stroke: #333;
+  stroke-width: 1;
+}
+g.cutline-group text.group-label{
+  stroke: #333;
+  text-anchor: middle;
+  font-size: 12px;
+  stroke-width: 0;
+}
+.rect-bg{
+  fill: #fff;
+}
+g.target-g{
+  cursor: pointer;
+}
+.animate{
+  // transition: all .5s;
+}
+.d3-tip>.tip-content{
+  color: #fff;
+  font-size: 12px;
+  background-color: rgba($color: #000000, $alpha: 0.6);
+  padding: 3px 5px;
+  border-radius: 2px;
+}
+.d3-tip>.tip-progress{
+  color: #fff;
+  font-size: 10px;
+  background-color: rgba($color: #000000, $alpha: 0.6);
+  padding: 2px;
+  border-radius: 2px;
+}

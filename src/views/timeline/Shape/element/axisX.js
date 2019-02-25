@@ -1,0 +1,130 @@
+
+import {scaleTime as d3_scaleTime} from 'd3-scale';
+import {axisBottom as d3_axisBottom,axisTop as d3_axisTop} from 'd3-axis';
+// import {timeFormat as d3_timeFormat,formatLocale as d3_formatLocale} from 'd3-time-format'
+import {zoomIdentity as d3_zoomIdentity} from 'd3'
+import {event as d3_event} from 'd3-selection'
+import {zoom as d3_zoom, zoomTransform as d3_zoomTransform} from 'd3-zoom'
+import {
+  drag as d3_drag
+} from 'd3-drag'
+// import {formatLocale as d3_locale} from 'd3-format'
+
+export default context => {
+
+  return svg =>{
+
+    // let domain = context.state.domain;
+    let domain = [new Date(2019,1,1),new Date(2019.12,31)]
+    context._x = d3_scaleTime()
+      .domain(domain)
+      .range([context.config.groupWidth,context.config.width]);
+    let xAxis;
+    if(context.config.xbottom){
+      xAxis = d3_axisBottom(context._x)
+        .tickSize(-context.config.height).ticks(context.config.tick)
+    }else{
+      xAxis = d3_axisTop(context._x)
+        // .tickFormat(d3_timeFormat('%Y-%m-%d'))
+        // .tickFormat(zh.format())
+        .tickSize(-context.config.boxHeight).ticks(context.config.tick)
+    }
+
+    const zoomed = ()=>{
+      context._t = d3_event.transform.rescaleX(context._x);
+      context.state.transform = d3_event.transform;
+      let scale = context.state.transform.k
+      let domain = context._t.domain();
+      // if(scale<0.5){
+      //   context.state.status = 'msss'
+      // }else if(scale<1&&scale>=0.5){
+      //   context.state.status = 'bmss';
+      // }else if(scale>=1&&scale<4){
+      //   context.state.status = 'bbms';
+      // }else if(scale>=4&&scale<9){
+      //   context.state.status = 'bbbm';
+      // }else if(scale>=9){
+      //   context.state.status = 'bbbb';
+      // }
+      if(scale<0.4){
+        context.state.status = 'bmss'
+      }else if(scale>=0.4&&scale<1){
+        context.state.status = 'bbms';
+      }else if(scale>=1&&scale<3){
+        context.state.status = 'bbbm';
+      }else if(scale>=3){
+        context.state.status = 'bbbb';
+      }
+      context.group.select('.x.axis').call(xAxis.scale(context._t));
+      // context.group.select('.x.axis').call(xAxis);
+      // svg.call(xAxis.scale(context._t));
+      // console.log(d3_event.sourceEvent);
+      context.state.list = context.calcList(context.config.data,context._t);
+      context.fire('change',{domain:domain});
+      for(let name in context.shapes){
+        if(typeof context.shapes[name].update==='function') context.shapes[name].update();
+      }
+
+      if(d3_event.sourceEvent.type=='mousemove'){
+        // d3.select('.target-group').attr('transform',`translate(0,${d3.event.transform.y})`);
+        // d3.select('.cutline-group').attr('transform',`translate(0,${d3.event.transform.y})`);
+        // if(d3_event.transform.y<=0){
+        //   context.state.currentY = d3_event.transform.y>-3?0:d3_event.transform.y;
+        //   context.fire('scrollEvent',{y:-context.state.currentY});
+        // }
+      }
+
+
+    }
+
+
+    context.on('zoomTo',(data)=>{
+      let date = data.date;
+      let t;
+      // console.log(xAxis.scale(context._t));
+      if(context._t){
+        t = d3_zoomIdentity.translate(context._t(date),0).scale(1);
+      }else {
+        t = d3_zoomIdentity.translate(context._x(date),0).scale(1);
+      }
+      // context.group.select('.x.axis').transition().duration(750).call(zoom.transform,t);
+      svg.transition().duration(750).call(zoom.transform,t).on('end',()=>{
+        // context.group.select('.x.axis').call(xAxis.scale(context._t));
+        
+      })
+    })
+        
+
+    let zoom = d3_zoom()
+      .scaleExtent([0.00001,Infinity])
+      // .scaleExtent([0.02,7.5])
+      .on('zoom',zoomed);
+
+    context.group = svg.append('g')
+      .attr('transform',`translate(${context.config.top},${context.config.left})`).call(zoom)
+  
+    // svg.call(zoom);
+    
+    context.group.append('rect')
+      .attr('class', 'chart-bounds')
+      .attr('x', context.config.groupWidth)
+      .attr('y', 0)
+      .attr('height', context.config.boxHeight)
+      .attr('fill','rgba(0,0,0,0)')
+      .attr('width', context.config.width - context.config.groupWidth)
+      .on('click',()=>{
+        context.state.currentTarget = null;
+        context.fire('select',{data:null});
+      })
+
+
+    let y = context.config.xbottom?context.config.height-context.config.bottom:context.config.bottom;
+    let xAxisG =  context.group.append('g')
+      // .attr('clip-path', 'url(#chart-content)')
+      .attr('class', 'x axis')
+      .attr('transform', 'translate(0,' + y + ')')
+      .call(xAxis);
+    xAxisG.selectAll('path.domain').attr('fill',"none").attr('stroke','none')
+
+  }
+}

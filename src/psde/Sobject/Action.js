@@ -1,0 +1,12 @@
+export default {
+  ADDING:1,
+  MODIFY:4,
+  DELETE:2,
+  COPY:8,
+  BASE:32,
+  ATRRIBUTE:64,
+  FORM:128,
+  RELEATION:256,
+  COMPOSE:512,
+  MODEL:1024
+}
