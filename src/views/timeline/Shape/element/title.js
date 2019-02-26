@@ -107,9 +107,9 @@ export default context => {
     update();
 
 
-    context.on('change',()=>{
-      update();
-    })
+    // context.on('change',()=>{
+    //   update();
+    // })
     
   }
 }

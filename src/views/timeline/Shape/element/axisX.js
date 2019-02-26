@@ -3,7 +3,7 @@ import {scaleTime as d3_scaleTime} from 'd3-scale';
 import {axisBottom as d3_axisBottom,axisTop as d3_axisTop} from 'd3-axis';
 // import {timeFormat as d3_timeFormat,formatLocale as d3_formatLocale} from 'd3-time-format'
 import {zoomIdentity as d3_zoomIdentity} from 'd3'
-import {event as d3_event} from 'd3-selection'
+import {event as d3_event,clientPoint as d3_clientPoint,select as d3_select} from 'd3-selection'
 import {zoom as d3_zoom, zoomTransform as d3_zoomTransform} from 'd3-zoom'
 import {
   drag as d3_drag
@@ -11,7 +11,8 @@ import {
 // import {formatLocale as d3_locale} from 'd3-format'
 
 export default context => {
-
+  let orginPoint = {};
+  let py = 0;
   return svg =>{
 
     // let domain = context.state.domain;
@@ -29,6 +30,7 @@ export default context => {
         // .tickFormat(zh.format())
         .tickSize(-context.config.boxHeight).ticks(context.config.tick)
     }
+
 
     const zoomed = ()=>{
       context._t = d3_event.transform.rescaleX(context._x);
@@ -60,18 +62,21 @@ export default context => {
       // svg.call(xAxis.scale(context._t));
       // console.log(d3_event.sourceEvent);
       context.state.list = context.calcList(context.config.data,context._t);
+      // console.log(context.state.list);
       context.fire('change',{domain:domain});
       for(let name in context.shapes){
         if(typeof context.shapes[name].update==='function') context.shapes[name].update();
       }
+      
+      if(d3_event.sourceEvent&&d3_event.sourceEvent.type=='mousemove'){
 
-      if(d3_event.sourceEvent.type=='mousemove'){
-        // d3.select('.target-group').attr('transform',`translate(0,${d3.event.transform.y})`);
-        // d3.select('.cutline-group').attr('transform',`translate(0,${d3.event.transform.y})`);
-        // if(d3_event.transform.y<=0){
-        //   context.state.currentY = d3_event.transform.y>-3?0:d3_event.transform.y;
-        //   context.fire('scrollEvent',{y:-context.state.currentY});
-        // }
+        // context.state.currentY = d3_event.sourceEvent.y - orginPoint.y;
+        let _py = d3_event.sourceEvent.y - orginPoint.y;
+        if(-_py-py>=0){
+          context.fire('scrollEvent',{y:-_py-py});
+        }else if(_py-py>-10){
+          context.fire('scrollEvent',{y:0});
+        }
       }
 
 
@@ -87,10 +92,7 @@ export default context => {
       }else {
         t = d3_zoomIdentity.translate(context._x(date),0).scale(1);
       }
-      // context.group.select('.x.axis').transition().duration(750).call(zoom.transform,t);
-      svg.transition().duration(750).call(zoom.transform,t).on('end',()=>{
-        // context.group.select('.x.axis').call(xAxis.scale(context._t));
-        
+        svg.transition().duration(750).call(zoom.transform,t).on('end',()=>{
       })
     })
         
@@ -104,7 +106,6 @@ export default context => {
       .attr('transform',`translate(${context.config.top},${context.config.left})`).call(zoom)
   
     // svg.call(zoom);
-    
     context.group.append('rect')
       .attr('class', 'chart-bounds')
       .attr('x', context.config.groupWidth)
@@ -112,6 +113,17 @@ export default context => {
       .attr('height', context.config.boxHeight)
       .attr('fill','rgba(0,0,0,0)')
       .attr('width', context.config.width - context.config.groupWidth)
+      .on('mousedown',()=>{
+        orginPoint.y = d3_event.y;
+        let str = context.group.select('.target-group').attr('transform')
+        if(str){
+          str = str.split(',')[1];
+          str = str.split(')')[0];
+          py = Number(str)
+        }else{
+          py = 0;
+        }
+      })
       .on('click',()=>{
         context.state.currentTarget = null;
         context.fire('select',{data:null});

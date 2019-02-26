@@ -42,8 +42,8 @@ export default context => {
       progressGroup.exit().remove();
     }
     update();
-    context.on('change',()=>{
-      update();
-    })
+    // context.on('change',()=>{
+    //   update();
+    // })
   }
 }

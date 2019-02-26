@@ -2,34 +2,23 @@ import {zoomTransform as d3_zoomTransform} from 'd3-zoom';
 import {zoomIdentity as d3_zoomIdentity} from 'd3'
 export default context => {
   return (g) =>{
-    let group = context.config.data;
+    let group = context.state.list;
     let verticalLineGroup = g.append('g')
+      
     verticalLineGroup.append('line')
       .classed('y',true)
       .attr('x1',context.config.groupWidth)
       .attr('y1',0)
       .attr('x2',context.config.groupWidth)
-      .attr('y2',context.config.height);
-    const getHeight = (h,i,d)=>{
-      let width = 0;
-      let status = context.state.status;
-      // console.log(d,i,status)
-      while(i>0){
-        i--;
-        if(group[i].data[0]) width = context.getWidth(group[i].data[0]);
-        if(width>0){
-          h+=group[i].lineHeight
-        }else {
-          h+=group[i].smallHeight;
-        }
-      }
+      .attr('y2',context.config.boxHeight)
+      
+    let clipGroup = context.group.append('g')
+      .attr('clip-path', 'url(#cutline-content)')
 
-      return h
-    }
-    let cutLineGroup = context.group
+    let cutLineGroup = clipGroup
       .append('g')
       .classed('cutline-group',true)
-
+      
       const update = ()=>{
       //生成组
         let lines = cutLineGroup.selectAll('.cutline').data(group);
@@ -39,18 +28,8 @@ export default context => {
           .attr('x1',0)
           .attr('x2',context.config.width)
           .merge(lines)
-          .attr('y1',(d,i)=>{
-            // let h=context.config.bottom;
-            let h = getHeight(context.config.bottom,i,d)
-            // let h = context.getPy(d)
-            // console.log(d,h)
-            return h
-          })
-          .attr("y2",(d,i)=>{
-            let h = getHeight(context.config.bottom,i,d)
-            // let h = context.getPy(d);
-            return h
-          })
+          .attr('y1',(d)=>context.getGroupY(d.timing))
+          .attr("y2",(d)=>context.getGroupY(d.timing))
 
         lines.exit().remove();
         let labels = cutLineGroup.selectAll('.group-label').data(group);
@@ -59,12 +38,8 @@ export default context => {
           .attr('x',context.config.groupWidth/2)
           .text(d=>d.label)
           .merge(labels)
-          .attr('y',(d,i)=>{
-            let h = getHeight(40,i)
-            return h;
-          })
+          .attr('y',(d)=>context.getGroupY(d.timing)+20)
           
-
         labels.exit().remove();
     }
     update();

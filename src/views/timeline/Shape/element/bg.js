@@ -55,9 +55,9 @@ export default context=>{
     
 
 
-    context.on('change',()=>{
-      update();
-    })
+    // context.on('change',()=>{
+    //   update();
+    // })
     context.on('hightLight',data=>{
       console.log(data.list,'list')
       update(data.list)

@@ -56,7 +56,7 @@ export default class TimeLine extends Evented {
     this.config.boxHeight = container.node().clientHeight;
     let svg = container.append('svg')
       .classed('time-svg',true)
-      
+    svg.call(UiDefs(this));
     svg.call(UiXAxis(this));
     
 
@@ -68,14 +68,13 @@ export default class TimeLine extends Evented {
     svg.attr('width',this.config.width)
       .attr('height',this.config.boxHeight);
 
-    svg.call(UiDefs(this));
+    
     
     svg.call(UiTip(this));
 
-    // this.group.call(UiCutline(this))
+    this.group.call(UiCutline(this))
     // this.createTarget(this.state.list);
     this.group.call(UiTarget(this));
-    // this.group.call(UiScrollBar(this));
   }
   addShapes(shapes){
     shapes.forEach(shape=>{
@@ -171,48 +170,66 @@ export default class TimeLine extends Evented {
     list.forEach(el=>{
       let width = this.getWidth(el);
       if(el.timing==1){
-        // console.log(width,1)
         weeks = this.adjustObj(list,el,1,fn,width,gap,weeks);
       }else if(el.timing==2){
-        // console.log(width,2)
         months = this.adjustObj(list,el,2,fn,width,gap,months);
       }else if(el.timing==3){
-        // console.log(width,3)
         quarters = this.adjustObj(list,el,3,fn,width,gap,quarters);
-        // console.log(quarters.datas)
       }else if(el.timing==4){
-        // console.log(width,4)
         years = this.adjustObj(list,el,4,fn,width,gap,years);
       }
-    })
+    });
+    // console.log(years);
+    // console.log(quarters);
+    // console.log(months);
+    // console.log(weeks);
     return [years,quarters,months,weeks];
   }
   adjustObj(list,el,flag,fn,width,gap,collcetion){
-    // width = 300;
-    list.forEach(ev=>{
-      let bool = ev.timing==flag&&Math.abs(fn(ev.date)-fn(el.date))< width;
-      if(bool){
-        // console.log(Math.abs(fn(ev.date)-fn(el.date)))
-        let max = fn(ev.date)-fn(el.date)<0?ev.date.toString():el.date.toString();
-        if(collcetion.datas[max]) {
-          let index = collcetion.datas[max].findIndex(en=>en.id==ev.id);
-          if(index==-1&&!ev.isComp) {
-            ev.isComp = true;
-            ev.targetWidth = width;
-            collcetion.datas[max].push(ev);
-          }
-        }else{
-          if(!ev.isComp){
-            collcetion.datas[max] = [];
-            ev.isComp = true;
-            ev.targetWidth = width;
-            collcetion.datas[max].push(ev);
-          }
+    width = 300;
+    // list.forEach(ev=>{
+    //   let bool = ev.timing==flag&&Math.abs(fn(ev.date)-fn(el.date))< width+gap;
+    //   if(bool){
+    //     let max = fn(ev.date)-fn(el.date)<0?ev.date.toString():el.date.toString();
+    //     if(collcetion.datas[max]) {
+    //       let index = collcetion.datas[max].findIndex(en=>en.id==ev.id);
+    //       if(index==-1&&!ev.isComp) {
+    //         ev.isComp = true;
+    //         ev.targetWidth = width;
+    //         collcetion.datas[max].push(ev);
+    //       }
+    //     }else{
+    //       if(!ev.isComp){
+    //         collcetion.datas[max] = [];
+    //         ev.isComp = true;
+    //         ev.targetWidth = width;
+    //         collcetion.datas[max].push(ev);
+    //       }
+    //     }
+    //   }
+    // });
+    // collcetion.lineHeight = this.calcLineHeight(collcetion.datas);
+    // return collcetion;
+    let aimlist = collcetion.datas[el.etime];
+    // console.log(el.etime);
+    if(aimlist instanceof Array){
+      // console.log(new Date(key))
+      for(let key in collcetion.datas){
+        let bool = Math.abs(fn(el.date)-fn(new Date(key)))<=width+gap;
+        // let bool = el.etime == key;
+        // console.log(bool)
+        if(bool){
+          let index = collcetion.datas[el.etime].findIndex(ev=>ev.id==el.id);
+          if(index==-1) collcetion.datas[el.etime].push(el);
         }
       }
-    });
+      
+    }else{
+      collcetion.datas[el.etime] = [el];
+    }
     collcetion.lineHeight = this.calcLineHeight(collcetion.datas);
     return collcetion;
+
   }
   calcLineHeight(obj){
     let maxNum = 0;
@@ -224,6 +241,23 @@ export default class TimeLine extends Evented {
     }
     let height = maxNum*(targetHeight+gap)+gap
     return height;
+  }
+  getGroupY(flag){
+    let height = 0;
+    let yearsH = this.state.list.find(el=>el.timing==4).lineHeight;
+    let quartersH = this.state.list.find(el=>el.timing==3).lineHeight;
+    let monthsH = this.state.list.find(el=>el.timing==2).lineHeight;
+    // let weeksH = this.state.list.find(el=>el.timing==1).lineHeight;
+    if(flag==4){
+      height = this.config.bottom;
+    }else if(flag==3){
+      height = this.config.bottom+yearsH;
+    }else if(flag==2){
+      height = this.config.bottom+yearsH+quartersH;
+    }else if(flag==1){
+      height = this.config.bottom+yearsH+quartersH+monthsH;
+    }
+    return height
   }
   
 }

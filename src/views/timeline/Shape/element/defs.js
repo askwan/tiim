@@ -14,8 +14,16 @@ export default context => {
       .attr('id', 'chart-content')
       .append('rect')
       .attr('x', context.config.groupWidth)
-      .attr('y', 0)
-      .attr('height', context.config.height)
+      .attr('y', 20)
+      .attr('height', context.config.boxHeight)
+      .attr('width', context.config.width - context.config.groupWidth);
+
+    defs.append('clipPath')
+      .attr('id', 'cutline-content')
+      .append('rect')
+      .attr('x', 0)
+      .attr('y', 20)
+      .attr('height', context.config.boxHeight)
       .attr('width', context.config.width - context.config.groupWidth);
 
     let pattern = defs.selectAll('pattern').data(list);
