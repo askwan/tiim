@@ -1,0 +1,51 @@
+@charset "utf-8";
+@import "../helpers/_var";
+@import "../helpers/_mixins";
+.common-btn{
+    @include dib;
+    @include animate-2;
+    padding: 7px 12px;
+    border-radius: 3px;
+    border: solid 1px $eguan-border-color-message;
+    &.start-server{
+        margin-right: $eguan-margin6;
+        &:hover{
+            color: $eguan-color-active;
+            border-color: $eguan-color-active;
+        }
+    }
+    &.close-server{
+        &:hover{
+            color: $eguan-color-del;
+            border-color: $eguan-color-del;
+        }
+    }
+    &.common-btn-small{
+        padding: 7px 21px;
+    }
+}
+.chandao-box{
+    margin-bottom: 20px;
+    .chandao-address{
+        margin-bottom: 16px;
+    }
+    .close-tip{
+        line-height: 28px;
+    }
+}
+.extend-box{
+    .content-line,
+    .content-end{
+        padding: $eguan-padding30 0;
+        p{
+            white-space: pre-wrap;
+            line-height: 32px;
+        }
+    }
+    .content-line{
+        border-bottom: 1px solid $eguan-border-color-message;
+        p{
+            text-indent: 31px;
+        }
+    }
+}

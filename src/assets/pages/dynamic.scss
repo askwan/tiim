@@ -1,0 +1,100 @@
+@charset "utf-8";
+@import "../helpers/_var";
+.dynamic-list-item{
+    margin-top: 30px;
+    .dynamic-title{
+        height: 60px;
+        .dynamic-time,
+        .dynamic-station{
+            background: white;
+            position: relative;
+            z-index: 1;
+        }
+        .dynamic-time{ // 日期
+            border: 3px solid  #e1e2e5;  
+            box-sizing: border-box;
+            width: 60px;
+            height: 60px; 
+            .time-day{
+                line-height: 54px;
+                font-weight: bold;
+                color: #158def;
+                span{
+                    display: block;
+                }
+                .date{
+                    margin: 6px 0 0 0;
+                    line-height: 22px;
+                    font-family: arial, sans-serif;
+                    font-weight: bold;
+                }
+                .day{
+                    line-height: 1;
+                    color: #969799;
+                    margin: 2px 0 0 0;
+                    font-weight: 500;
+                }
+            }   
+            &.no-content{
+                border-color: white;
+            }     
+        }
+        .dynamic-station{  // 驿管
+            line-height: 60px;
+            padding: 0 0 0 8px;
+            color: #646566;
+            font-size: 18px;
+        }
+        &::before{
+            content: '';
+            display: block;
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: #e1e2e5;
+            overflow: hidden;
+        }
+    }
+    ul{
+        padding: 0 0 0 60px;
+        li{
+            display: flex;
+            padding-bottom: 30px;
+            .dynamic-list{
+                span{
+                    line-height: 50px;
+                    color: #646566;
+                }
+                img{
+                    margin: 0 20px 0 15px;
+                }
+            }
+            .dynamic-task-box{
+                flex: 1;
+                p{
+                    line-height: 30px;
+                    word-break: break-all;
+                    padding-right: 168px;
+                }
+                .task-name,a{
+                    color: $eguan-color-tag;
+                }
+                .task-user-name{
+                    font-weight: 600;
+                    color: inherit;
+                }
+            }
+            &:last-child{
+                padding: 0;
+            }
+        }
+    }
+
+}
+@media screen and (max-width: 1200px){
+    .dynamic-list-item ul li .dynamic-list img{
+        margin:  0 15px 0 10px;
+    }
+}

@@ -1,0 +1,582 @@
+@charset "utf-8";
+@import "../helpers/_var";
+@import "../helpers/_function";
+@import "../helpers/animate";
+.dashed-border{
+  input,textarea {
+    outline: none;
+    overflow: hidden;
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+    border-style: dashed;
+    margin-top: -3px; 
+    border-radius: 0;
+    padding: 0;
+    @extend .font-size2;
+  }
+}
+.task-mark-menu{
+   span{
+     color: $eguan-color-tag;
+     margin-bottom: 20px;
+     @include dib;
+   } 
+}
+// 紧急情况
+.task-mark{
+  @include dib;
+  @extend .font-size1;
+  color: $eguan-color-white;
+  border-radius: $eguan-border-raduis4;
+  padding: 0px $eguan-padding6;
+  margin-right: $eguan-margin6;
+  &.mark2{
+    background: $egaun-border-hard2;
+  }
+  &.mark1{
+    background: $egaun-border-hard1;
+  }
+}
+.task-list-name{
+  @include dib;
+  vertical-align: sub;
+  max-width: 800px;
+  @extend .alone;
+}
+@media screen and (max-width: 1200px){
+  .task-list-name{
+    max-width: 560px;
+  }
+}
+.task-status-model {
+  margin: $eguan-margin20 0;
+  padding: $eguan-padding10;
+  background: $eguan-background-body;
+  border-radius: $eguan-border-raduis4;
+  position: relative;
+  .task-status-title {
+    line-height: 33px;
+  }
+  >ul {
+    height: 620px;
+    overflow-y: auto;
+    li {
+      background: $eguan-background-white;
+      border: 1px solid $eguan-border-color-small;
+      padding: $eguan-padding10;
+      border-radius: $eguan-border-raduis4;
+      margin: $eguan-padding10 0;
+      .tag.small {
+        @include dib;
+        margin: $eguan-margin10 $eguan-margin10 $eguan-margin10/2 0;
+        font {
+          &:last-child {
+            margin: 0 0 0 8px;
+          }
+          &:first-child {
+            margin: 0;
+          }
+        }
+      }
+      &>.el-checkbox {
+        display: flex;
+        white-space: pre-wrap;
+        .el-checkbox__label {
+          margin-top: -2px;
+        }
+      }
+      &.task-hard2 {
+        border-left: 3px solid $egaun-border-hard1;
+      }
+      &.task-hard3 {
+        border-left: 3px solid $egaun-border-hard2;
+      }
+      @at-root .task-assign {
+        p {
+          margin: $eguan-margin10 0;
+        }
+        .el-input {
+          width: auto;
+        }
+        .el-input--prefix .el-input__inner {
+          padding-right: 0;
+          padding-left: $eguan-padding15;
+          width: 194px;
+        }
+      }
+      @at-root .el-popper[x-placement^=right] {
+        margin: -8px 0 0 20px;
+      }
+    }
+    .task-name {
+      margin-left: 6px;
+    }
+    .task-add {
+      .el-input{
+        @extend .dashed-border;
+      }
+      .task-btn {
+        padding: 14px 0;
+      }
+    }
+  }
+  .add-task {
+    @include dib;
+    width: 18px;
+    height: 18px;
+    line-height: 18px;
+    color: $eguan-color-white;
+    border-radius: $eguan-border-raduis50;
+    vertical-align: middle;
+  }
+  .filter-task{
+    @include dib;
+    color: $eguan-color-active;
+    background: transparent;
+    vertical-align: middle;
+    margin-left: $eguan-margin6;
+    line-height: 18px;
+  }
+}
+
+// 详情
+.task-detail-box{
+  max-width: 86%;
+  .task-title{
+    .el-checkbox__input{
+      line-height: 2.4;
+    }
+  }
+    .el-row--flex{
+        .el-checkbox__inner{
+            width: 16px;
+            height: 16px;
+        }
+        .el-checkbox__inner::after{
+            height: 8px;
+            left: 5px;
+        }
+    }
+    .task-name{
+        // margin-left: 8px;
+        flex: 1;
+        @extend .font-size4;
+    }
+    .no-bg{
+        color: $eguan-color-tag-small;
+    }
+    .detail-handle{
+        @extend .font-size1;
+        margin: $eguan-margin12 0;
+    }
+    .message-box{
+        p{
+            span{
+                color: #969799;
+                font-size: $eguan-font-default;
+            }
+        }
+        .message-contetn{
+            color: #646566;
+        }
+    }
+    .task-comment{
+        ul{
+            height: auto;
+            // max-height: 480px;
+            margin-top: 2*$eguan-margin6;
+            border-top: 1px solid $eguan-color-border;
+            li{
+                border: none;
+                padding-top: $eguan-padding20;
+                .message-box{
+                    margin-left: $eguan-padding6;
+                }
+            }
+        }      
+    }
+    // 评价验收项
+    .result-assgin{
+      margin-left: 26px !important;
+    }
+    .result-assgin,
+    .comment-result,
+    .result-score{
+      vertical-align: text-bottom;
+      // margin-left: 22px;
+    }
+    .comment-result{
+      color: $eguan-color-active;
+    }
+    .result-score{
+      color: $egaun-border-hard1;
+      // margin-right: -20px;
+    }
+    .score-des{
+      margin-left: 28px;
+      line-height: 22px;
+      color: inherit;
+      color: $eguan-color-tag;
+      &.result-remark{
+        color: $eguan-color-tag;
+        white-space: pre-wrap;
+      }
+    }
+  }
+  // 两个菜单切换
+  .work-category-wrap{
+    h2{
+      color:  $eguan-color-tag;
+      &:last-of-type{
+        margin-left: $eguan-margin40;
+      }
+      &:first-of-type{
+        margin-left: 0;
+      }
+    }
+    .publish{
+      right: 0;
+    }
+  }
+.check-box{
+  margin: $eguan-margin10 0;
+  line-height: 1.5;
+}
+// 关键结果
+.task-list-item-font{
+  .el-checkbox__label{
+    font-size: 16px;
+  }
+}
+.result-box{
+  position: relative;
+  margin-bottom: 6px;
+  .el-checkbox__inner{
+    border-radius: $eguan-border-raduis50;
+  }
+  .el-checkbox__input.is-checked+.el-checkbox__label{
+    color: #777;
+    // font-size: 16px;
+    text-decoration: line-through;
+  }
+  .el-checkbox__input.is-checked .el-checkbox__inner{
+    background: $eguan-color-success;
+    border-color: $eguan-color-success;
+  }
+  .el-checkbox__input.is-focus .el-checkbox__inner,
+  .el-checkbox__inner:hover{
+    border-color: $eguan-color-success;
+  }
+  .el-checkbox__input.is-disabled+span.el-checkbox__label{
+    color: $eguan-color-tag;
+  }
+  .el-checkbox__label{
+    white-space: normal !important;
+    word-wrap:break-word !important;
+    margin-right: -20px;
+    // font-size: 16px;
+  }
+  .el-checkbox{
+    display: inline-flex;
+    .el-checkbox__input{
+      line-height: inherit;
+    }
+  }
+}
+// 任务操作
+.task-list-item-name{
+  position: relative;
+  .task-handle{
+    @extend .animate-time2;
+    @include dib;
+    position: absolute;
+    top: 0;
+    left: -100px;
+    width: 100px;
+    transform: scale(0);
+    transform-origin: right;
+    .handle-box{
+      float: right;
+      padding: 1px $eguan-padding6;
+      background-color: #fff;
+      border-radius: 14px 0 0 14px;
+      box-shadow: -1px 0 1px rgba(0,0,0,0.2);
+      >a{
+        float: right;
+        margin: 0 5px;
+        color: $eguan-color-copyright;
+        &:focus{
+          outline: none !important;
+        }
+      }
+      .remove-bth{
+        &:hover{
+          color: $eguan-create-2;
+        }
+      }
+      .editor-bth{
+        &:hover{
+          color: $eguan-color-active;
+        }
+      }
+    }
+  }
+  &:hover{
+    .task-handle{
+      transform: scale(1);
+    }
+  }
+}
+// 任务详情标题
+.el-dialog__headerbtn .el-dialog__close{
+  // opacity: 0;
+}
+.task-detail-title{
+  position: relative;
+  .task-detail-handle{
+    position: absolute;
+    right: -1px;
+    top: -3px;
+  }
+}
+.posi-box{
+  position: absolute;
+  bottom: 20px;
+}
+.position{
+  position: absolute;
+  background: $eguan-color-white;
+  left: 0px;
+  top: 4px;
+  &:hover{
+    .remove-bth{
+      transform: scale(1);
+    }
+  }
+}
+// 动作
+.task-action-box{
+  ul {
+    padding: 10px 0 0 0;
+    border-top: 1px solid $eguan-border-color-default;
+    li{
+    line-height: 32px;
+    display: flex;
+    align-items: baseline;
+    i{
+      color: $eguan-color-active;
+      margin-right: 6px;
+      opacity: 0.7;
+      @extend .font-size4;
+      &.add{
+         display: inline-block;
+         width: 18px;
+         height: 18px;
+         line-height: 18px;
+         font-size: 12px;
+         background: $eguan-color-active; 
+         text-align: center;
+         border-radius: 50%;
+         color: white; 
+      }
+    }
+    .action-time{
+      flex: 1;
+      white-space: nowrap;
+    }
+    .action-user-name{
+      color: inherit;
+      margin-left: $eguan-margin10;
+    }
+    .action-mark{
+      flex: 6;
+      line-height: 24px;
+      margin-left: 12px;
+      word-break: break-all;
+    }
+    span{
+      color: $eguan-color-tag;
+    }
+  }
+}
+}
+// 培训结果
+.color-default{
+  color: initial !important;
+}
+.color-tag{
+  color: $eguan-color-tag !important;
+}
+.upload-common-box{
+  border: 1px solid #e1e2e5;
+  width: 100%;
+  box-sizing: border-box;
+  border-radius: 3px;
+  padding: 0 15px;
+  .upload-name-style{
+    line-height: 42px;
+    // 类型
+    .type-class{
+      margin-right: 5px;
+      display: inline-block;
+      vertical-align: middle;
+      width: 16px;
+      height: 20px;
+      background-position: -72px -300px;
+    }
+    .color-default{
+      max-width: 590px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      word-break: break-all;
+      display: inline-block;
+      vertical-align: middle;
+    }
+    .suffix-icon{
+      color: #c8c9cc;
+      margin-left: 4px;
+      opacity: 0;
+      &:hover{
+        color: #e35d5f;
+      }
+    }
+    border-bottom: 1px solid #e1e2e5; 
+    &:last-child{
+      border-color:transparent; 
+    }
+    .el-row--flex{
+      &:hover{
+        .suffix-icon{
+          opacity: 1;
+        }
+      }
+    }
+    .default-del-color{
+      color: #999;
+      vertical-align: middle;
+      &:hover{
+        color: #e54222;
+      }
+    }
+  }
+}
+.result-show-upload{
+  margin-top: $eguan-margin10;
+  .upload-down-btn{
+    i{
+      opacity: 1;
+      margin: 0;
+    }
+  }
+  .upload-handle{
+    top: 0;
+    right: 0;
+    transform: scale(0);
+    transform-origin: right;
+    a{
+      margin-right: 10px;
+      color: #158def;
+      &:last-child{
+        margin: 0;
+      }
+    }
+  }
+}
+.result-upload{
+  border-style: dashed;
+  margin-top: 10px;
+}
+.idea-box{
+  line-height: 22px;
+  margin: 10px 0;
+  word-break: break-all;
+}
+.result-name-box{
+  &:hover{
+    .upload-handle{
+      transform: scaleY(1);
+      right: 20px;
+    }
+  }
+}
+// 进度条
+.eguan-progress{
+  width: 40%;
+  margin: auto;
+  padding: 15px 0;
+  .el-progress-bar__inner{
+    animation: reverse progress-bar-stripes 0.40s linear infinite, animate-positive 2s;
+    background-size: 40px 40px;
+    background-image: linear-gradient(45deg,rgba(255,255,255,.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,.15) 50%,rgba(255,255,255,.15) 75%,transparent 75%,transparent);
+  }
+} 
+
+// 打印
+@media print {
+  .eguan-heard,
+  .home-down{
+    display: none !important;
+  }
+}
+// 紧急程度颜色
+.task-priority-color{
+  .el-dropdown-menu__item{
+    color: initial;
+    &:nth-child(2){
+      color: #e6b522;
+    }
+    &:nth-child(3){
+      color: #e56322;
+    }
+  }
+}
+
+// 关联任务
+.relation-task-box{
+  padding: 12px;
+  width: 380px;
+  
+  .color-tip{
+    color: #969799;
+  }
+  .el-dropdown-menu__item{
+    &,&:hover{
+      padding: 0;
+      background: #fff;
+      color: #646566;
+    }
+  }
+  .cancel-relation{
+    color: #969799;
+    margin-right: 7px;
+    padding-right: 7px;
+    border-right: 1px solid #e8e9ed;
+  }
+  .relation-box{
+    max-height: 112px;
+    overflow-y: auto;
+  }
+}
+.relation-no-task{
+  .mini-no-data{
+    .eguan-picture{
+      margin: 14px auto !important;
+    }
+  }
+}
+// 颜色选择器
+.task-status-model .picker-color{
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border: 1px solid red;
+  opacity: 0;
+  height: 18px;
+  .el-color-picker__trigger{
+    width: 100%;
+    height: 18px;
+  }
+}

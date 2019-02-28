@@ -1,0 +1,53 @@
+@charset "utf-8";
+@import "../helpers/_var";
+@import "../helpers/_function";
+.message-board-box {
+  .el-upload-list--picture-card .el-upload-list__item,
+  .el-upload--picture-card {
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+  }
+  .upload-box {
+    margin: 9px 0 20px 0;
+    position: relative;
+    .upload-tip {
+      @include dib;
+      line-height: 60px;
+      vertical-align: top;
+      margin-left: $eguan-margin10;
+      color: $eguan-color-tip;
+    }
+    .message-handle {
+      position: absolute;
+      right: 0;
+      top: 0;
+      transform: translateY(50%);
+    }
+  }
+  ul {
+    li {
+        padding: 12px 0;
+        border-top: 1px solid $eguan-border-color-message;
+      .message-box {
+        margin-left: $eguan-margin10;
+        p {
+          span {
+            color: $eguan-color-copyright;
+            @extend .font-size1;
+          }
+        }
+        .message-content{
+            color: $eguan-color-tag;
+            img{
+                max-width: 50px;
+                max-height: 50px;
+            }
+        }
+      }
+    }
+  }
+  .el-dialog__header {
+    border: none;
+  }
+}

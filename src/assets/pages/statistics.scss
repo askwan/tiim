@@ -1,0 +1,311 @@
+@charset "utf-8";
+@import "../helpers/_var";
+@import "../helpers/_mixins";
+.statistics-box{
+    border: 1px solid $eguan-border-color-message;
+    border-radius: 3px;
+    .map-box{
+        border-bottom: 1px solid $eguan-border-color-message;
+        .grid-content{
+            padding: 0 20px 20px 20px;
+            h6{
+                padding: 16px 0;
+                .warn-color{
+                    color: $egaun-border-hard2 !important;
+                }
+            }
+            .border-line{
+                border-bottom: 1px solid $eguan-border-color-message;
+                padding-bottom: 14px; 
+            }
+            // 成员
+            .all-user-box{
+                ul{
+                    height: 216px;
+                    &.flow-box{
+                        max-height: 216px;
+                        overflow-y: scroll;
+                    }
+                    li{
+                        margin-bottom: 12px;
+                        a{
+                            display: block;
+                            &.active{
+                                color: $eguan-color-active;
+                            }
+                        }
+                        &:last-child{
+                            margin: 0;
+                        }
+                        .progress-box{
+                            width: 100%;
+                            height: 12px;
+                            margin-top: 4px;
+                            background: #f7f8fc;
+                            border-radius: 20px;
+                            overflow: hidden;
+                            .progress-postpone,
+                            .progress-finish{
+                                top: 0;
+                                bottom: 0;
+                            }
+                            .progress-postpone{
+                                background: #e56322;
+                                right: 0;
+                            }
+                            .progress-finish{
+                                background: #27cc6c;
+                                left: 0;
+                            }
+                            .no-more{
+                                background: #e56322;
+                                left: 0;
+                            }
+                        }
+                        // .reletive-item{
+                            .tip-box{
+                                // background: #303133;
+                                // border-radius: 3px;
+                                // color: #fff;
+                                // right: -120px;
+                                // top: -30px;
+                                // padding: 6px 10px;
+                                opacity: 0;
+                            }
+                            &:hover{
+                                .tip-box{
+                                    opacity: 1;
+                                }
+                            }
+                        // }
+                    }
+                }
+            }
+        }
+        .bg-purple-light{
+            border-left: 1px solid $eguan-border-color-message;
+        }
+    }
+    // .statistics-wrap{
+    //     height: 210px;
+    //     border-bottom: 1px solid $eguan-border-color-message;
+    //     .dashed-line{
+    //         height: 42px;
+    //         &::after{
+    //             content: "";
+    //             display: block;
+    //             position: absolute;
+    //             left: 0;
+    //             right: 0;
+    //             height: 1px;
+    //             overflow: hidden;
+    //             border-top: 1px dashed $eguan-border-color-message;
+    //         }
+    //         &::before{
+    //             content: "";
+    //             display: block;
+    //             position: absolute;
+    //             bottom: 0;
+    //             top: 21px;
+    //             left: 0;
+    //             width: 4px;
+    //             height: 1px;
+    //             overflow: hidden;
+    //             border-top: 1px solid $eguan-border-color-message;
+    //         }
+    //         span{
+    //             display: block;
+    //             width: 20px;
+    //             top: -8px;
+    //             text-align: right;
+    //             margin-left: -28px;
+    //             color: $eguan-color-tag;
+    //         }
+    //     }
+    //     @at-root .statistics-des{
+    //         top: -8px;
+    //         left: 4px;
+    //         right: 0;
+    //         color: $eguan-color-tag;
+    //         .finish-tip,
+    //         .delay-tip{
+    //             display: inline-block;
+    //             border-radius: 1px;
+    //             vertical-align: middle;
+    //             margin-right: $eguan-margin6;
+    //             width: 16px;
+    //             height: 2px;
+    //         }
+    //         span{
+    //             &:last-child{
+    //                 margin-left: $eguan-margin12;
+    //             }
+    //         }
+    //     }
+    //     @at-root .finish-tip{
+    //         background-color: $eguan-color-success;
+    //     }
+    //     @at-root .delay-tip{
+    //        background-color: $egaun-border-hard2;
+    //     }
+    //     // 柱子
+    //     .bar-box{
+    //         left: 0;
+    //         top: 0;
+    //         right: 0;
+    //         bottom: 0;
+    //         overflow-x: auto;
+    //         overflow-y: hidden;
+    //         &::-webkit-scrollbar{
+    //             width: 4px;
+    //             height: 8px;
+    //             cursor: pointer;
+    //         }
+    //         &::-webkit-scrollbar-thumb {
+    //             background-color: $eguan-border-color-message;
+    //             cursor: pointer;
+    //         }
+    //         &::-webkit-scrollbar-track-piece{
+    //             background-color: $eguan-background-menu;
+    //         }
+    //         .bar-item-list{
+    //             // user-select: none;
+    //             height: 100%;
+    //             width: 34px;
+    //             margin: 0 $eguan-margin30;
+    //             .finish-tip,
+    //             .delay-tip{
+    //                 display: inline-block;
+    //                 position: absolute;
+    //                 z-index: 2;
+    //                 bottom: 0;
+    //                 width: 12px;
+    //                 height: 80px;
+    //                 border-radius: 6px 6px 0px 0px;
+    //             }
+    //             .finish-tip{
+    //                 left: 4px;
+    //                 background-image: linear-gradient(0deg, $eguan-color-success 0%, #3bdb86 100%), linear-gradient($eguan-color-success, $eguan-color-success);
+    //                 &:hover{
+    //                     background: $eguan-color-success;
+    //                 }
+    //             }
+    //             .delay-tip{
+    //                 // left: 50px;
+    //                 background-image: linear-gradient(0deg, $egaun-border-hard2 0%, #ed773b 100%), linear-gradient($egaun-border-hard2, $egaun-border-hard2);
+    //                 &:hover{
+    //                     background: $egaun-border-hard2;
+    //                 }
+    //             }
+    //         }
+    //     }
+    // }
+    // 用户
+    // .user-box{
+    //     overflow: hidden;
+    //     .user-item-list{
+    //         width: 94px;
+    //         a{
+    //             display: block;
+    //             line-height: 40px;
+    //             border: 1px solid transparent;
+    //             border-bottom-color: $eguan-border-color-message;
+    //             &.active{
+    //                 color: $eguan-color-active;
+    //                 border-right-color: $eguan-border-color-message;
+    //                 border-left-color: $eguan-border-color-message;
+    //                 border-bottom-color: transparent;
+    //             }
+    //         }
+    //         &:first-child{
+    //             a{
+    //                 border-left-color: transparent;
+    //             }
+    //         }
+    //         &:hover{
+    //             a{
+    //                 color: $eguan-color-active;
+    //             }
+    //         }
+    //     }
+    // }
+    // 统计
+    .count-total{
+        .count-computed{
+            padding: 20px;
+            // margin-top: -1px;
+            // border-top: 1px solid $eguan-border-color-message;
+            span{
+                margin-right: 20px;
+            }
+            i,font{
+                color: $eguan-color-active;
+            }
+            .warn-color{
+                color: $egaun-border-hard2;
+            }
+        }
+        .row-bg{
+            .total-list-box{
+                border: 1px solid transparent;
+                border-radius: 3px;
+                .eguan-progress{
+                    padding: 20px;
+                }
+            }
+            .load{
+                border-color: #d9eefe;
+            }
+            .expend{
+                border-color: #f7eed4;
+            }
+            .sta{
+                border-color: #d5f9e5;
+            }
+            .progress-tip{
+                margin: $eguan-margin10 0; 
+            }
+        }
+    }
+    // 任务展示
+    .task-show{
+        padding: 0 20px;
+        h6{
+            padding: 16px 0;
+        }
+        .change-bg{
+            color: $eguan-color-tag;
+        }
+        .row-bg{
+            span{
+                display: inline-block;
+                padding: 2*$eguan-padding6 $eguan-padding20;
+            }
+            &:nth-child(2n){
+                background-color: $eguan-background-menu;
+            }
+        }
+    }
+}
+.task-tip{
+    background: #fff;
+    color: #969799;
+    position: fixed;
+    transform: scale(0);
+    transform-origin: left;
+    z-index: 5;
+    padding: 2*$eguan-padding6;
+    border-radius: 3px;
+    box-shadow: 0px 2px 16px 0px rgba(0, 0, 0, 0.2);
+    h5{
+        white-space: nowrap;
+    }
+    &.show-tip{
+        transform: scale(1);
+    }
+}
+
+.zantao-user-box{
+    max-height: 200px;
+    overflow-y: scroll;
+}

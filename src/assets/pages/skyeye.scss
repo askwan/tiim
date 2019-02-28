@@ -1,0 +1,88 @@
+@charset "utf-8";
+@import "../helpers/_var";
+@import "../helpers/function";
+.skyeye-wrap{
+    .select-box{
+        max-width: 120px;
+        margin-left: $eguan-margin10;
+        &:first-child{
+            margin-left: 0;
+        }
+    }
+    //  下拉
+    .skyeye-handle{
+        margin: $eguan-margin12 0; 
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        >a{
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            background: #e8eaed;
+            border-radius: 50%;
+            font-size: $eguan-font-default;
+            line-height: 16px;
+            margin: 0 6px;
+        }
+        span,a{
+            // vertical-align: middle;
+            @include dib;
+        }
+    }
+    // 列表
+    .list-item{
+        .week-list-item{
+            .station-name{
+                position: relative;
+                &::before{
+                    content: '';
+                    display: block;
+                    height: 1px;
+                    background: $eguan-border-color-message;
+                    position: absolute;
+                    left: 0;
+                    right: 0;
+                    top: 48%;
+                }
+                .name-bg{
+                    position: relative;
+                    background: #fff;
+                    .font-station,
+                    .font-faction{
+                        padding: 0 5px;
+                    }
+                    .font-faction{
+                        padding-right: 0; 
+                        color: #969799;
+                    }
+                }
+            }
+            .task-box{
+                margin: 20px 0; 
+                .over{
+                    margin: 0;
+                }
+                .result-list-box{
+                    .result-box:first-child{
+                        margin: $eguan-margin10 0 $eguan-margin6 0;
+                        display: block;
+                    }
+                }
+            }
+        }
+    }
+}
+.select-list-box{
+    border-top: 1px solid $eguan-border-color-message;
+    line-height: 46px;
+    height: 46px;
+    &:first-child{
+        border: none;
+    }
+}
+.skyeye-person{
+    img,span{
+        vertical-align: middle;
+    }
+}

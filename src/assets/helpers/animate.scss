@@ -1,0 +1,179 @@
+// 铃铛
+@keyframes shake {
+  10% {
+    transform: rotate(15deg);
+  }
+
+  20% {
+    transform: rotate(-10deg);
+  }
+
+  30% {
+    transform: rotate(5deg);
+  }
+
+  40% {
+    transform: rotate(-5deg);
+  }
+
+  50%,
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes updown {
+  0% {
+    top: 0;
+    transform: translateY(0px);
+  }
+
+  10% {
+    transform: translateY(-5px);
+    opacity: 0.6;
+  }
+
+  30% {
+    transform: translateY(-15px);
+    opacity: 0.5;
+  }
+
+  50% {
+    transform: translateY(-25px);
+    opacity: 0.4;
+  }
+
+  70% {
+    transform: translateY(-35px);
+    opacity: 0.3;
+  }
+
+  90% {
+    transform: translateY(-45px);
+    opacity: 0.2;
+  }
+
+  100% {
+    transform: translateY(-50px);
+    opacity: 0.1;
+  }
+}
+
+@keyframes eguna-updown {
+  0%,
+  50%,
+  100% {
+    transition-timing-function: cubic-bezier(0.215, .61, .355, 1);
+    transform: translate3d(0, 0, 0);
+  }
+
+  25%,
+  75% {
+    transition-timing-function: cubic-bezier(0.755, 0.50, 0.855, 0.060);
+    transform: translate3d(0, -8px, 0);
+  }
+}
+// 首页动画
+
+@keyframes bounceInDown {
+  0% {
+    opacity: 0.2;
+    transform: translate3d(0,-1200px,0);
+  }
+  60% {
+    opacity: 1;
+    transform: translate3d(0,20px,0);
+  }
+  75% {
+    opacity: 1;
+    transform: translate3d(0,-10px,0);
+  }
+  90% {
+    opacity: 1;
+    transform: translate3d(0,5px,0);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes bounceInUp {
+  0% {
+    opacity: 0.2;
+    transform: translate3d(0,1200px,0);
+  }
+  60% {
+    opacity: 1;
+    transform: translate3d(0,-20px,0);
+  }
+  75% {
+    opacity: 1;
+    transform: translate3d(0,10px,0);
+  }
+  90% {
+    opacity: 1;
+    transform: translate3d(0,-5px,0);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes bounceInRight {
+  0% {
+    opacity: 0.2;
+    transform: translate3d(-1200px,0,0);
+  }
+  60% {
+    opacity: 1;
+    transform: translate3d(20px,0,0);
+  }
+  75% {
+    opacity: 1;
+    transform: translate3d(-10px,0,0);
+  }
+  90% {
+    opacity: 1;
+    transform: translate3d(5px,0,0);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes bounceInLeft{
+  0% {
+    opacity: 0.2;
+    transform: translate3d(1200px,0,0);
+  }
+  60% {
+    opacity: 1;
+    transform: translate3d(-20px,0,0);
+  }
+  75% {
+    opacity: 1;
+    transform: translate3d(10px,0,0);
+  }
+  90% {
+    opacity: 1;
+    transform: translate3d(-5px,0,0);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+// 进度条
+@keyframes progress-bar-stripes {
+  0% {
+    background-position: 40px 0;
+  }
+  100% {
+      background-position: 0 0;
+  }
+}
+@keyframes animate-positive {
+  0% {
+    width: 0;
+  }
+}

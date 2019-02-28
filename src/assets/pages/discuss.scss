@@ -1,0 +1,88 @@
+@charset "utf-8";
+@import "../helpers/_var";
+.reward-comment-box{
+    border-top: 1px solid $eguan-border-color-default;
+    margin-top: -1px;
+}
+// 发表
+.discuss-publish-box{
+    padding: $eguan-padding20 0;
+    .publish-update{
+        margin: $eguan-margin12 0; 
+    }
+}
+// 评论列表
+.discuss-box{
+    margin-top: 20px;
+    background: #f5f6f7;
+    padding: 0 20px;
+    border-radius: 3px;
+    &.no-bg{
+        background: #fff;
+    }
+    .discuss-flex{
+        padding: $eguan-padding20 0;
+        border-top: 1px solid $eguan-border-color-default;
+        .message-box{
+            margin-left: $eguan-margin6;
+        }
+        .message-content{
+            padding: 6px 0 $eguan-padding10;
+            color: $eguan-color-tag;
+        }
+        .handle-btn{
+            position: absolute;
+            top: 1px;
+            right: 0;
+            bottom: 0;
+            // opacity: 0;
+            color: $eguan-color-tag;
+            a{
+                margin-right: 12px;
+                &:hover{
+                    color: $eguan-color-active;
+                }
+                &.del-btn{
+                    &:hover{
+                        color: red;
+                    }
+                }
+            }
+        }
+        // .el-row--flex{
+        //     &:hover{
+        //         .handle-btn{
+        //             opacity: 1;
+        //         }
+        //     }
+        // }
+    }
+    // 回复
+    .reply-box{
+        background: #f5f6f7;
+        // max-width: 90%;
+        margin-left: 36px;
+        margin-top: $eguan-margin6;
+        padding: $eguan-padding10;
+        border-radius: 4px;
+        .handle-reply-btn{
+            right: 0;
+            bottom: 6px;
+            margin-right: 16px;
+            opacity: 0;
+            >a{
+                margin-right: 12px;
+                &.del-btn{
+                    &:hover{
+                        color: red;
+                    }
+                }
+            }
+        }
+        &:hover{
+            .handle-reply-btn{
+                opacity: 1;
+            }
+        }
+    }
+}

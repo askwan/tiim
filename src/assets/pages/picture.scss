@@ -1,0 +1,74 @@
+@charset "utf-8";
+@import "../helpers/_var";
+@import "../helpers/_mixins";
+.eguan-picture{
+    position: relative;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    // background-image: url("./img/sprite.png");
+}
+.eguan-reward-line{
+    height: 4px;
+    background-position: 0 0;
+}
+.eguan-reward-wrap{
+    @include common-size(186px,245px);
+    background-position: 0 -33px;
+}
+.no-data{
+    @include common-size(83px,65px);
+    background-position: -236px -33px;
+}
+.no-search{
+    @include common-size(86px,72px);
+    background-position: -370px -33px;
+}
+.no-station{
+    @include common-size(78px,66px);
+    background-position: -506px -33px;
+}
+.no-user{
+    @include common-size(83px,62px);
+    background-position: -633px -33px;
+}
+.no-comment{
+    @include common-size(83px,68px);
+    background-position: -770px -33px;
+}
+//  892 938 984 1030 1076  上传文件的类型
+#app{
+    .xls,
+    .xlsx{
+        background-position: -892px -33px;
+    }
+    .doc,
+    .docx{
+        background-position: -938px -33px;
+    }
+    .ppt,
+    .pptx{
+        background-position: -984px -33px;
+    }
+    .zip,
+    .rar{
+        background-position: -1030px -33px;
+    }
+    .pdf{
+        background-position: -1076px -33px;
+    }
+}
+// 驿管为你提供的三个图片
+
+.produce-mark-image{
+    @include common-size(80px,80px);
+    background-position: -1142px -33px;
+}
+.produce-staff-image{
+    @include common-size(88px,68px);
+    background-position: -1270px -33px;
+}
+.produce-train-image{
+    @include common-size(64px,70px);
+    background-position: -1406px -33px;
+}

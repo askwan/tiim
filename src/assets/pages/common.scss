@@ -1,0 +1,552 @@
+@charset "utf-8";
+@import "../helpers/_var";
+@import "../helpers/_mixins";
+@import "../helpers/_function";
+html.fullscreen {
+  overflow: hidden;
+}
+.eguan-view .router-link-active{
+  color: $eguan-color-active;
+}
+body {
+  background: $eguan-background-body;
+  overflow-y: scroll;
+  &.nativeBg{
+    background: $eguan-color-white;
+  }
+}
+
+body,
+#app {
+  min-height: 95vh;
+}
+
+.fl {
+  float: left;
+}
+
+.fr {
+  float: right;
+}
+.posi-re{
+  position: relative;
+}
+.posi-ab{
+  position: absolute;
+}
+.assist-color{
+  color: $eguan-color-tag;
+}
+.nodata{
+  color: $eguan-color-tip;
+}
+.cle {
+  zoom: 1;
+  &::after {
+    content: "";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+  }
+}
+.circle{
+  border-radius: $eguan-border-raduis50 !important;
+}
+.avatar{
+  @extend .circle;  
+  height: 50px;
+  width: 50px;
+}
+// common-hover
+.router-link-active{
+  color: $eguan-color-active !important;
+}
+.common-hover{
+  &:hover{
+    color: $eguan-color-active !important;
+  }
+  &.del{
+    &:hover{
+      color: $eguan-color-del !important;
+    }
+  }
+}
+// 居中
+.text-center {
+  text-align: center;
+  // overflow: hidden;
+}
+
+.align-center {  
+  align-items: center;
+}
+#app .flex-layout{ // 弹性布局居中
+  @include df;
+  @extend .align-center;
+}
+//  居右
+.font-right{
+  text-align: right;
+}
+.font-left{
+  text-align: left;
+}
+// 一行
+.alone{
+  // @extend .text-center;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.omitted-t {
+  word-break: break-all;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  pre {
+    overflow: hidden;
+  }
+}
+.eguan-wrap .transparent {
+  @include dib;
+  background-color: transparent;
+}
+@font-face {
+  font-family: 'iconfont';  /* project id 802460 */
+  src: url('//at.alicdn.com/t/font_802460_7jjtu6tceci.eot');
+  src: url('//at.alicdn.com/t/font_802460_7jjtu6tceci.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_802460_7jjtu6tceci.woff2') format('woff2'),
+  url('//at.alicdn.com/t/font_802460_7jjtu6tceci.woff') format('woff'),
+  url('//at.alicdn.com/t/font_802460_7jjtu6tceci.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_802460_7jjtu6tceci.svg#iconfont') format('svg');
+}
+.iconfont {
+  font-family: "iconfont" !important; // font-size:16px;
+  font-style: normal;
+  // cursor: pointer;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke-width: 0.2px;
+  -moz-osx-font-smoothing: grayscale;
+  &:focus{
+    outline: none !important;
+  }
+}
+.pointer{
+  cursor: pointer;
+}
+.color-tag{
+  color: $eguan-color-icon;
+}
+.over{
+  cursor: default;
+  color: $eguan-color-tag;
+  pointer-events: none;
+  &.white{
+    color: #fff;
+    background: #909399;
+    border-color: transparent; 
+  }
+  &.color-default{
+    color: $eguan-color-default !important;
+  }
+  &.color-white{
+    color: white;
+  }
+}
+.el-checkbox{
+  user-select: text !important;
+}
+// 弹框
+.el-dialog__header {
+  border-bottom: 1px solid $eguan-color-border;
+}
+
+//标记
+.mark{
+  &.manager { // 掌柜
+    color: $eguan-color-manager;
+  }
+  &.success{  // 对号
+    color: $eguan-color-success;
+  }
+}
+.font-color-title{
+  color: $eguan-color-tag;
+}
+
+// 版权说明
+.copyright {
+  @extend .text-center;
+  padding: $eguan-margin20 0;
+  background: $eguan-background-body;
+  span {
+    color: $eguan-color-copyright;
+  }
+}
+
+// 整体大框  
+.eguan-wrap {
+  width: 1200px;
+  margin: 0 auto;
+  .font-bold{
+    font-weight: 600;
+  }
+}
+
+.eguan-list-item {
+  @include df;
+  margin-top: $eguan-margin30;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  .list-item {
+    width: 262px;
+    margin: 0 $eguan-margin30 $eguan-margin30 0;
+    &:nth-child(4n+4) {
+      margin: 0 0 $eguan-margin30 0;
+    }
+    .big-font{
+      font-size: 60px;
+      color: $eguan-border-color-message;
+    }
+    .little-tip{
+      span{
+        color: $eguan-color-tip;
+        line-height: 30px;
+        white-space: nowrap;
+      }
+    }
+  }
+}
+.task-status-box{
+  width: 386px;
+}
+.eguan-task-title{
+  max-width: 530px;
+  .el-input{
+    width: 530px;
+  }
+}
+// 适配 960px
+@media screen and (max-width: 1200px) {
+  .eguan-wrap {
+    width: 960px;
+  } // 驿管列表
+  .eguan-list-item {
+    .list-item {
+      width: 278px;
+      &:nth-child(4n+4) {
+        margin: 0 $eguan-margin30 $eguan-margin30 0;
+      }
+      &:nth-child(3n+3) {
+        margin: 0 0 $eguan-margin30 0;
+      }
+    }
+  }
+  // 任务列表
+  .task-status-box{
+    width: 306px;
+  }
+  // 悬赏任务
+  .reward-wrap-h{
+    margin-left: -5px;
+    .reward-list{
+      &:nth-child(6n+6),
+      .reward-model{
+        width: 181px;
+      }
+      &:nth-child(5n+5){
+        .reward-model{
+          width: 178px;
+        }
+      }
+    }
+  }
+  // 任务名称
+  .eguan-task-title{
+    .el-input{
+      width: 326px;
+    }
+  }
+}
+
+// 展示出的框
+.eguan-common-wrap {
+  border-radius: $eguan-border-raduis4;
+  @extend .posi-re;
+}
+.egaun-min-height{
+  min-height: 80vh;
+}
+.eguan-view {
+  border: 1px solid $eguan-color-border;
+  background: $eguan-color-white;
+  padding: $eguan-padding30;
+  @extend .eguan-common-wrap;
+  @extend .posi-re;
+  box-sizing: border-box;
+  @include box-shadow;
+  min-height: 500px;
+  .item-set-list{
+    border-bottom: 1px solid $eguan-color-border;
+    padding: $eguan-padding20 0;
+    >span{
+      @include dib;
+      color: $eguan-color-tag;
+      margin: 16px 0;
+    }
+    &:last-child{
+      border-bottom-color: transparent;
+    }
+    &:first-child{
+      padding-top: 0;
+    }
+    .el-button--text{
+      color: $eguan-color-active;
+      &:hover{
+        color: #2ea1ff;
+      }
+    }
+  }
+}
+
+// 渐变的 标签
+.linear-gradient {
+  background: linear-gradient(-45deg, #16a4f2, #158def);
+}
+
+.tags {
+  // @include df;
+  // align-items: flex-start;
+  .tag {
+    @include pointer;
+    @include dib;
+    padding: $eguan-padding6 2*$eguan-padding6;
+    border-radius: $eguan-border-raduis20;
+    margin-right: $eguan-margin12;
+    @extend .font-color-title;
+    background: $eguan-background-tag;
+    &:hover {
+      background: $eguan-background-hover;
+    }
+    &.active {
+      color: $eguan-color-white;
+      @extend .linear-gradient;
+      &:hover {
+        @extend .linear-gradient;
+      }
+    }
+    &.small{
+      color: $eguan-color-tag-small;
+      background: $eguan-background-body;
+      padding: 0 $eguan-padding10;
+      margin: 0  $eguan-margin10 0 0;
+      height: 20px;
+      line-height: 20px;
+      box-sizing: border-box;
+    }
+    &.no-bg{
+      background: transparent;
+      border: 1px solid $eguan-color-border;
+    }
+    &.no-border{
+      border: none;
+    }
+    &.raduis4{
+      border-radius: $eguan-border-raduis4;
+    }
+    &.time-mark{
+      color: $eguan-color-white;
+      padding: 0 6px;
+      height: 18px;
+      line-height: 18px;
+      border-radius: 3px;
+      background: $eguan-color-active;
+    }
+    &.time-mark4{
+      background: #f26a7a;
+    }
+    &.time-mark3{
+      background: #a8e609;
+    }
+    &.time-mark2{
+      background: #10e7f7;
+    }
+    &.time-mark1{
+      background: #f9c528;
+    }
+    .hard2{
+      font-style: normal;
+      font-weight: 500;
+      color: $egaun-border-hard2;
+    }
+    &.pause{
+      border: 1px solid transparent;
+      background: #fff9e8;
+      &,a{
+        color: #e6b522;
+      }
+    }
+    &.postpone{
+      color: $egaun-color-denger;
+      background: $eguan-background-postpone;
+      a{
+        color: $egaun-color-denger;
+      }
+    }
+  }
+}
+
+// 按钮
+.eguan-icon-btn {
+  display: inline-block;
+  @extend .text-center;
+  box-sizing: border-box;
+  width: $eguan-padding40;
+  height: $eguan-padding40;
+  line-height: $eguan-padding40;
+  border: 1px solid $eguan-color-border;
+  border-radius: $eguan-border-raduis4;
+  &:focus {
+    outline: none;
+  }
+}
+
+// 多选
+.eguan-checkbox-box {
+  padding: $eguan-padding20 0 $eguan-padding20/2 0;
+  border-bottom: 1px solid $eguan-color-border;
+  .is-disabled{
+    .el-checkbox__inner{
+      &::after{
+        transform: rotate(45deg) scaleY(1);
+      }
+    }
+  }
+  // 伙计管理
+  .el-checkbox__label{
+    width: 90px;
+    vertical-align: middle;
+  }
+}
+
+// 菜单切换
+.eguan-link-page {
+  @include db;
+  margin: 0 auto;
+  width: 98%;
+  @extend .font-color-title;
+  text-indent: $eguan-padding20;
+  background: $eguan-background-menu;
+  border: 1px solid $eguan-color-border;
+  border-bottom: none;
+  height: 47px;
+  line-height: 47px;
+  @extend .animate-time2;
+  @extend .font-size3;
+  &:hover {
+    background: $eguan-background-white;
+  }
+  &:first-child{
+    border-radius: $eguan-border-raduis4 $eguan-border-raduis4 0 0;
+  }
+}
+
+// 列表
+.common-list {
+  padding: ($eguan-padding10 + $eguan-padding6) 0;
+  border-bottom: 1px solid $eguan-color-border;
+  border-top: 1px solid $eguan-color-border;
+  margin-top: -1px;
+  &.common-list-small{
+    padding: $eguan-padding10 0;
+  }
+  &:last-child{
+    // border: none;
+  }
+}
+
+// 工作台
+.eguan-route-style{
+  @extend .common-list;
+  // min-height: 60px;
+  padding: $eguan-padding6 0;
+  a{
+    @extend .font-color-title;
+  }
+}
+// 任务列表
+.eguan-task-model{
+  @include df;
+  @extend .align-center;
+  min-height: 36px;
+  position: relative;
+  &:hover{
+    .remove-bth{
+        transform: scale(1);
+    }
+  }
+}
+.eguan-task-finish{
+  // padding-bottom: $eguan-padding20;
+  li{
+    line-height: 28px;
+  }
+}
+// 访客列表
+.station-caller-list{
+  @include db;
+  width: 50px;
+  height: 100px;
+  .caller-user{
+    @extend .text-center;
+    @extend .alone;
+    @include db;
+    width: 70px;
+    margin-left: -10px;
+  }
+}
+//  编辑器
+.simditor-wrap{
+  img{
+    max-width: 100%;
+    height: 100%;
+  }
+}
+// 拖拽
+.choose{
+  opacity: 0.5;
+}
+// element 小提示
+.el-tooltip__popper{
+  padding: 6px 10px !important;
+}
+.common-margin20{
+  margin-right: $eguan-margin20;
+}
+// 审核框
+.common-box-dialog{
+  .el-dialog__body{
+    padding: 0 15px;
+  }
+  .el-dialog__footer{
+    border-color: transparent;
+    padding: 20px 0;
+  }
+  .el-dialog{
+    min-width: 460px;
+  }
+}
+
+// 放大
+#app .maxWin{
+  padding: 20px 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #fff;
+}

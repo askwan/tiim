@@ -1,0 +1,72 @@
+@charset "utf-8";
+@import "../helpers/_var";
+.eguan-form {
+  font-size: 0;
+  li {
+    position: relative;
+    padding-top: 20px;
+    font-size: 14px;
+    color: $eguan-color-default;
+    .eguan-form-fl {
+      position: absolute;
+      left: 0;
+      width: 42px;
+      text-align: right;
+      line-height: 34px;
+      .mark-star {
+        height: 34px;
+        line-height: 38px;
+        overflow: hidden;
+        margin: 0 3px 0 0;
+        color: #f55;
+      }
+    }
+    .eguan-form-fr{
+      margin-left: 52px;
+    }
+    .max-w4,
+    .max-w6{
+      @extend .font-size3;
+      span{
+        color: $eguan-color-tag;
+      }
+    }
+    .max-m4,
+    .max-m6{
+      min-height: 34px;
+      .integral-color{
+        .el-input__inner{
+          color: $egaun-border-hard2;
+        }
+      }
+    }
+    .max-w4{
+      width: 82px;
+    }
+    .max-m4{
+      margin-left: 92px;
+    }
+    .max-w6{
+      width: 116px;
+      .tip-icon{
+        top: 0;
+        left: -16px;
+        color: #afb0b2;
+      }
+    }
+    .max-m6{
+      margin-left: 118px;
+    }
+  }
+}
+.station-form{
+  margin: 0  0 40px;
+  .form-title{
+    color: #323233;
+  }
+  @at-root .form-state{
+    display: block;
+    margin: 16px 0;
+    color: #646566;
+  }
+}

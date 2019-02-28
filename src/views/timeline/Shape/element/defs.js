@@ -1,3 +1,4 @@
+
 const url = 'http://bt1.geosts.ac.cn/api/image/';
 export default context => {
   return group => {
@@ -10,7 +11,7 @@ export default context => {
     })
     let defs = group.append('defs');
 
-    defs.append('clipPath')
+    let chart = defs.append('clipPath')
       .attr('id', 'chart-content')
       .append('rect')
       .attr('x', context.config.groupWidth)
@@ -18,17 +19,18 @@ export default context => {
       .attr('height', context.config.boxHeight)
       .attr('width', context.config.width - context.config.groupWidth);
 
-    defs.append('clipPath')
+    let culine = defs.append('clipPath')
       .attr('id', 'cutline-content')
       .append('rect')
       .attr('x', 0)
       .attr('y', 20)
       .attr('height', context.config.boxHeight)
-      .attr('width', context.config.width - context.config.groupWidth);
+      .attr('width', context.config.width);
 
-    let pattern = defs.selectAll('pattern').data(list);
+    let pattern = defs.selectAll('.pattern-radius').data(list);
     pattern.enter().append('pattern')
       .attr('id',d=>"img-"+d.id)
+      .classed('pattern-radius',true)
       .attr('patternUnits','objectBoundingBox')
       .attr('width',20)
       .attr('height',20)
@@ -39,9 +41,39 @@ export default context => {
       .attr('width',20)
       .attr('height',20)
       .attr('x',0)
-      .attr('y',0)
+      .attr('y',0);
 
-    
+    pattern.exit().remove()
+
+
+      var filter = defs.append("defs")
+        .append("filter")
+        .attr("id", "box-show")
+        .attr("x", 0)
+        .attr("y", 0)
+        .attr("width", 1.5)
+        .attr("height", 1.5);
+      filter.append("feOffset")
+        .attr("result", "offOut")
+        .attr("in", "SourceAlpha")
+        .attr("dx", "-3")
+        .attr("dy", "-3");
+      filter.append("feGaussianBlur")
+        .attr("result", "blurOut")
+        .attr("in", "offOut")
+        .attr("stdDeviation", 5);
+      filter.append("feBlend")
+        .attr("in", "SourceGraphic")
+        .attr("in2", "blurOut")
+        .attr("mode", "normal");
+
+    context.on('reset',()=>{
+      chart.attr('height', context.config.boxHeight)
+        .attr('width', context.config.width);
+
+      culine.attr('height', context.config.boxHeight)
+        .attr('width', context.config.width);
+    })
 
   }
 }

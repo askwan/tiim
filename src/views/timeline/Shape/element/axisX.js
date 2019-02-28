@@ -35,7 +35,8 @@ export default context => {
     const zoomed = ()=>{
       context._t = d3_event.transform.rescaleX(context._x);
       context.state.transform = d3_event.transform;
-      let scale = context.state.transform.k
+      let scale = context.state.transform.k;
+      // console.log(d3_zoomTransform(context.group.select('.x.axis').node()))
       let domain = context._t.domain();
       // if(scale<0.5){
       //   context.state.status = 'msss'
@@ -64,19 +65,18 @@ export default context => {
       context.state.list = context.calcList(context.config.data,context._t);
       // console.log(context.state.list);
       context.fire('change',{domain:domain});
-      for(let name in context.shapes){
-        if(typeof context.shapes[name].update==='function') context.shapes[name].update();
-      }
+
       
       if(d3_event.sourceEvent&&d3_event.sourceEvent.type=='mousemove'){
 
-        // context.state.currentY = d3_event.sourceEvent.y - orginPoint.y;
+        context.state.currentY = d3_event.sourceEvent.y - orginPoint.y;
         let _py = d3_event.sourceEvent.y - orginPoint.y;
         if(-_py-py>=0){
           context.fire('scrollEvent',{y:-_py-py});
         }else if(_py-py>-10){
           context.fire('scrollEvent',{y:0});
         }
+
       }
 
 
@@ -94,18 +94,20 @@ export default context => {
       }
         svg.transition().duration(750).call(zoom.transform,t).on('end',()=>{
       })
+    });
+    context.on('reset',()=>{
+      context.group.transition().duration(750).call(zoom.transform,d3_zoomIdentity);
     })
         
 
     let zoom = d3_zoom()
-      .scaleExtent([0.00001,Infinity])
-      // .scaleExtent([0.02,7.5])
+      // .scaleExtent([0.00001,Infinity])
+      .scaleExtent([0.02,20])
       .on('zoom',zoomed);
 
     context.group = svg.append('g')
       .attr('transform',`translate(${context.config.top},${context.config.left})`).call(zoom)
   
-    // svg.call(zoom);
     context.group.append('rect')
       .attr('class', 'chart-bounds')
       .attr('x', context.config.groupWidth)
@@ -127,6 +129,7 @@ export default context => {
       .on('click',()=>{
         context.state.currentTarget = null;
         context.fire('select',{data:null});
+        context.hightLight([]);
       })
 
 

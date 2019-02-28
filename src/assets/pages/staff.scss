@@ -1,0 +1,103 @@
+@charset "utf-8";
+@import "../helpers/_var";
+
+.eguan-staff-wrap {
+  position: relative;
+  top: 0;
+}
+
+.staff-box {
+  .staff-list-item {
+    margin-bottom: $eguan-margin12;
+
+    .el-card__body {
+      padding: $eguan-padding15;
+    }
+
+    .list-item {
+      .list-lt {
+        margin-right: $eguan-padding40/5;
+        // 副帮主 & 掌柜
+        .mark-leader {
+          bottom: -5px;
+          left: 50%;
+          transform: translateX(-50%);
+          padding: 0 10px;
+          white-space: nowrap;
+          text-align: center;
+          border-radius: $eguan-border-raduis20;
+          color: $eguan-color-white;
+          font-size: $eguan-font-default;
+          background: $eguan-color-active;
+        }
+        // 帮主
+        .banglicai{
+          background: $egaun-border-hard1;
+        }
+      }
+
+      .list-rt {
+        width: 100%;
+        max-width: 200px;
+        .user-name {
+          a{
+            b{
+              vertical-align: middle;
+              max-width: 50%;
+              overflow: hidden;
+              display: inline-block;
+              text-overflow: ellipsis;
+              white-space: nowrap;
+            }
+          }
+          span {
+            vertical-align: middle;
+            color: $eguan-color-tag;
+            margin-left: $eguan-margin10;
+            em {
+              color: $egaun-border-hard2;
+              margin-right: $eguan-margin12/3;
+              font-style: inherit;
+            }
+          }
+        }
+
+        .user-skill {
+          white-space: nowrap;
+          max-width: 200px;  
+          div {
+            display: inline-flex;
+            line-height: 14px;
+            max-width: 50%;
+            @extend .alone;
+
+            span {
+              color: $eguan-color-tag;
+
+              b {
+                font-weight: normal;
+                color: initial;
+              }
+            }
+
+            &:last-child {
+              text-indent: $eguan-margin10;
+              border-left: 1px solid #c8c9cc;
+            }
+          }
+        }
+      }
+    }
+  }
+  .big-list-item{
+    margin-bottom: 30px;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .staff-box {
+    .staff-list-item {
+      width: 33.33333%;
+    }
+  }
+}

@@ -4,8 +4,13 @@ import UiCircle from './circle'
 import UilineGroup from './lineGroup'
 import UiShade from './shade'
 import UiProgress from './progress'
-
+import {drag as d3_drag} from 'd3-drag'
 export default context => {
+
+  const dragMove = ()=>{
+    let drag = d3_drag();
+    return drag;
+  }
   return g => {
     let clipG = g.append('g').classed('clip-g',true)
       .attr('clip-path', 'url(#chart-content)')
@@ -33,6 +38,11 @@ export default context => {
       let group = updateGroupG.selectAll(`.${name}-g`).data(d=>d);
       let updateGroup = group.enter().append('g')
         .classed(`${name}-g`,true)
+        .on('click',d=>{
+          context.state.currentTarget = d;
+          context.fire('select',{data:d});
+          context.hightLight([d.id]);
+        })
         .merge(group)
         .attr('transform',(d,i)=>{
           let gap = context.config.gap;
@@ -40,17 +50,8 @@ export default context => {
           let posiY = context.getGroupY(d.timing);
           return `translate(${fn(d.date)},${(gap+targetHeight)*i+gap+posiY})`
         })
-        .attr('data-id',d=>d.id);
-      let circle = updateGroup.selectAll('circle').data(d=>[d])
-      circle.enter().append('circle')
-        .attr('cx',0)
-        .attr('r',5)
-        .attr('cy',0)
-        .attr('fill','#e65c8a')
-        .merge(circle);
-
-      circle.exit().remove();
-      updateGroup.call(UilineGroup(context));  
+        .attr('data-id',d=>d.id)
+        .call(dragMove());
       updateGroup.call(UiCircle(context));
 
       let copyGroup = updateGroup.selectAll('.copy-group').data(d=>[d]);
@@ -103,6 +104,7 @@ export default context => {
     });
     context.on('scrollEvent',data=>{
       targetGroup.attr('transform',`translate(0,${-data.y})`);
+      // targetGroup.transition().duration(750).attr('transform',`translate(0,${-data.y})`);
     })
 
   }

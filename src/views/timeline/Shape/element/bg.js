@@ -2,8 +2,8 @@ export default context=>{
   return target =>{
     let radius = 4;
     
-    const update = (list=[])=>{
-
+    const update = ()=>{
+      let list = context.state.hightLights;
       let rectBg = target.selectAll('.rect-bg').data(d=>[d]);
       rectBg.enter().append('rect')
         .classed('rect-bg',true)
@@ -12,6 +12,7 @@ export default context=>{
         .attr('rx',radius)
         .attr('ry',radius)
         .attr('y',0)
+        .attr("filter", "url(#box-show)")
         .merge(rectBg)
         .attr('x',(d)=>{
 
@@ -31,11 +32,12 @@ export default context=>{
       borderBg.enter().append('rect')
         .classed('rect-bg-border',true)
         .classed('animate',true)
-        .attr('height',context.config.targetHeight)
+        .attr('height',context.config.targetHeight+2)
         .attr('rx',radius)
         .attr('ry',radius)
         .attr('y',0)
         .attr('fill','rgba(0,0,0,0)')
+        
         .attr('stroke','red')
         .merge(borderBg)
         .attr('x',d=>{
@@ -53,14 +55,8 @@ export default context=>{
     };
     update();
     
-
-
-    // context.on('change',()=>{
-    //   update();
-    // })
     context.on('hightLight',data=>{
-      console.log(data.list,'list')
-      update(data.list)
+      update()
     })
   }
 }

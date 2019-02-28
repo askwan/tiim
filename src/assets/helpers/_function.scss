@@ -1,0 +1,58 @@
+@charset "utf-8";
+@import "./_var";
+
+@for $a from 1 through 10 {
+  .font-size#{$a} {
+    font-size: $eguan-font-default + (($a*2)-2);
+  }
+}
+
+@for $a from 1 through 4 {
+  .line-height#{$a} {
+    line-height: $a;
+  }
+}
+
+@for $s from 1 through 10 {
+  .animate-time#{$s} {
+    transition: all ($s/10)*1s cubic-bezier(0.4, 0.01, 0.165, 0.99) !important;
+  }
+}
+
+@each $class,
+$color in (c1, $eguan-create-1),
+(c2, $eguan-create-2),
+(c3, $eguan-create-3),
+(c4, $eguan-create-4),
+(c5, $eguan-create-5),
+(c6, $eguan-create-6),
+  {
+  .icon-#{$class} {
+    color: $color;
+    background: $color;
+  }
+}
+
+@each $class,$color in (status1,$eguan-color-copyright),
+(status2,$egaun-border-hard1),
+(status3,$eguan-color-success),
+(status8,$egaun-border-hard1),
+(status4,$egaun-border-hard2)
+ {
+  .reward-task-#{$class}{
+    color: $color;
+  }
+}
+//  工作紧急程度
+@each $class,$color in (1,$egaun-border-hard),
+(2,$egaun-border-hard1),
+(3,$egaun-border-hard2),
+ {
+  #app .bg#{$class}{
+    margin: 0;
+    padding: 0 6px;
+    background: $color;
+    color: $eguan-color-white;
+    font-size: 12px;
+  }
+}

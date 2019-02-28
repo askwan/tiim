@@ -1,0 +1,74 @@
+@charset "utf-8";
+@import "../helpers/_var";
+@import "../helpers/_mixins";
+@import "../helpers/animate";
+
+.eguan-heard {
+  // border: solid 1px #e6e6e6;
+  // box-shadow: $eguan-shadow-light;
+  min-height: 60px;
+
+  .eguan-menu {
+    @include df;
+    .faction-name-box{
+      max-width: 160px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;  
+    }
+    .eguan-menu-box {
+      border: none;
+      margin-left: $eguan-padding20;
+      li {
+        @include dib;
+        float: left;
+        height: 60px;
+        line-height: 60px;
+        margin: 0;
+        border-bottom: 2px solid transparent;
+        font-size: 14px;
+        cursor: pointer;
+        transition: border-color .3s, background-color .3s, color .3s;
+        box-sizing: border-box;
+        color: $eguan-color-tip;
+
+        a {
+          @extend .animate-time2;
+          padding: 0 20px;
+          color: inherit;
+          @include db;
+
+          &:hover {
+            color: $eguan-color-default;
+          }
+        }
+      }
+    }
+  }
+
+  .menu-handle {
+    text-align: right;
+
+    .el-badge {
+      margin-right: $eguan-padding20;
+
+      >i {
+        @include dib;
+        @at-root .shake{
+          transform-origin: top;
+          animation: shake 2.5s linear infinite;
+        }
+      }
+    }
+  }
+  
+}
+.little{
+  font-size: 12px !important;
+  color: $eguan-color-copyright;
+  cursor: default !important;
+  &:hover{
+    background-color: #fff !important;
+    color: $eguan-color-copyright !important;
+  }
+}

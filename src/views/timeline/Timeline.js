@@ -11,6 +11,8 @@ import UiXAxis from './Shape/element/axisX'
 import UiScrollBar from './Shape/element/scrollBar'
 import UiTip from './Shape/element/tip'
 import UiTarget from './Shape/element/target'
+import UiLineGroup from './Shape/element/lineGroup'
+import lineGroup from './Shape/element/lineGroup';
 
 export default class TimeLine extends Evented {
   constructor(option,callback){
@@ -36,7 +38,8 @@ export default class TimeLine extends Evented {
       domain:[new Date(2018,10,1),new Date(2019,8,31)],
       transform:{k:0,x:0,y:0},
       status:'bbms',
-      currentY:0
+      currentY:0,
+      hightLights:[]
     };
     
     Object.assign(this.config,option);
@@ -73,8 +76,11 @@ export default class TimeLine extends Evented {
     svg.call(UiTip(this));
 
     this.group.call(UiCutline(this))
+    let clipGroup = this.group.append('g').classed('clip-group',true)
+    .attr('clip-path', 'url(#chart-content)');
     // this.createTarget(this.state.list);
     this.group.call(UiTarget(this));
+    clipGroup.call(UiLineGroup(this));
   }
   addShapes(shapes){
     shapes.forEach(shape=>{
@@ -86,9 +92,23 @@ export default class TimeLine extends Evented {
     return lists;
   }
   resetData(list){
-    d3_select(this.config.container).select('svg').remove();
+    let fn = this._t || this._x;
+    this.state.list = this.calcList(list,fn);
     this.config.data = list;
-    this.init(this.config.container);
+    this.fire('change');
+    this.fire('scrollEvent',{y:0})
+  }
+  reset(list){
+    let fn = this._t || this._x;
+    this.state.list = this.calcList(list,fn);
+    this.config.data = list;
+    let container = d3_select(this.config.container);
+    this.config.width = container.node().clientWidth;
+    this.config.height =  this.state.totalHegiht;
+    this.config.boxHeight = container.node().clientHeight;
+    this.fire('change');
+    this.fire('scrollEvent',{y:0});
+    this.fire('reset');
   }
   createTarget(results){
     for(let name in this.shapes){
@@ -144,21 +164,25 @@ export default class TimeLine extends Evented {
     let weeks = {
       label:'周目标',
       timing:1,
-      datas:{}
+      datas:{},
+      lineHeight:100
     };
     let months = {
       label:'月目标',
       timing:2,
+      lineHeight:100,
       datas:{}
     };
     let quarters = {
       label:'季目标',
       timing:3,
+      lineHeight:100,
       datas:{}
     };
     let years = {
       label:'年目标',
       timing:4,
+      lineHeight:100,
       datas:{}
     };
     // let status = this.state.status;
@@ -185,61 +209,39 @@ export default class TimeLine extends Evented {
     // console.log(weeks);
     return [years,quarters,months,weeks];
   }
-  adjustObj(list,el,flag,fn,width,gap,collcetion){
-    width = 300;
-    // list.forEach(ev=>{
-    //   let bool = ev.timing==flag&&Math.abs(fn(ev.date)-fn(el.date))< width+gap;
-    //   if(bool){
-    //     let max = fn(ev.date)-fn(el.date)<0?ev.date.toString():el.date.toString();
-    //     if(collcetion.datas[max]) {
-    //       let index = collcetion.datas[max].findIndex(en=>en.id==ev.id);
-    //       if(index==-1&&!ev.isComp) {
-    //         ev.isComp = true;
-    //         ev.targetWidth = width;
-    //         collcetion.datas[max].push(ev);
-    //       }
-    //     }else{
-    //       if(!ev.isComp){
-    //         collcetion.datas[max] = [];
-    //         ev.isComp = true;
-    //         ev.targetWidth = width;
-    //         collcetion.datas[max].push(ev);
-    //       }
-    //     }
-    //   }
-    // });
-    // collcetion.lineHeight = this.calcLineHeight(collcetion.datas);
-    // return collcetion;
-    let aimlist = collcetion.datas[el.etime];
-    // console.log(el.etime);
-    if(aimlist instanceof Array){
-      // console.log(new Date(key))
-      for(let key in collcetion.datas){
-        let bool = Math.abs(fn(el.date)-fn(new Date(key)))<=width+gap;
-        // let bool = el.etime == key;
-        // console.log(bool)
-        if(bool){
-          let index = collcetion.datas[el.etime].findIndex(ev=>ev.id==el.id);
-          if(index==-1) collcetion.datas[el.etime].push(el);
-        }
-      }
-      
+  adjustObj(list,el,flag,fn,width,gap=20,collcetion){
+    let _width = width;
+    let keys = Object.keys(collcetion.datas);
+    let aimKey = keys.find(key=>{
+      return Math.abs(fn(el.date)-fn(new Date(key)))<=_width+gap;
+    });
+    if(aimKey){
+      // let index = collcetion.datas[aimKey].find(ev=>ev.id==el.id);
+      el.width = width;
+      el.py = collcetion.datas[aimKey].length;
+      collcetion.datas[aimKey].push(el);
     }else{
+      el.width = width;
+      el.py = 0;
       collcetion.datas[el.etime] = [el];
     }
-    collcetion.lineHeight = this.calcLineHeight(collcetion.datas);
+    collcetion.width = width;
+    collcetion.lineHeight = this.calcLineHeight(collcetion);
     return collcetion;
 
   }
   calcLineHeight(obj){
     let maxNum = 0;
     let targetHeight = this.config.targetHeight;
+    let minHeight = this.config.smallTargetHeight;
+    let h = obj.width>0 ? targetHeight:minHeight;
     let gap = this.config.gap;
-    for(let key in obj){
-      let list = obj[key];
+    for(let key in obj.datas){
+      let list = obj.datas[key];
       maxNum = list.length>maxNum?list.length:maxNum;
     }
-    let height = maxNum*(targetHeight+gap)+gap
+    let height = maxNum*(h+gap)+gap;
+    height = height>this.config.groupHeight?height:this.config.groupHeight;
     return height;
   }
   getGroupY(flag){

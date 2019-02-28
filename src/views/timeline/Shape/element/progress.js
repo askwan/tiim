@@ -11,7 +11,7 @@ export default context => {
           let width = context.getWidth(d);
           let str = ''
           if(width>0){
-            str = `translate(${-width},${context.config.targetHeight-1})`
+            str = `translate(${-width},${context.config.targetHeight-4})`
           }else{
             str = 'translate(-10000,-10000)'
           }
@@ -22,7 +22,7 @@ export default context => {
       totalRect.enter().append('rect')
         .classed('total-rect',true)
         .attr('fill','rgba(0,0,0,.4)')
-        .attr('height',2)
+        .attr('height',4)
         .merge(totalRect)
         .attr('width',d=>context.getWidth(d))
         
@@ -34,7 +34,7 @@ export default context => {
         .classed('complate-rect',true)
         .attr('fill','rgb(21,141,239)')
         .attr('width',50)
-        .attr('height',2)
+        .attr('height',4)
         .merge(complateRect)
 
       complateRect.exit().remove();

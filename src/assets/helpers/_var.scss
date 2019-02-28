@@ -1,0 +1,69 @@
+@charset "utf-8";
+// 主颜色
+$eguan-color-default: #323233 !default;  //默认颜色
+$eguan-color-white: #fff !default;
+$eguan-color-copyright: #969799 !default;
+$eguan-color-border: #e8e9ed !default;
+$eguan-color-tip: #999 !default;
+$eguan-color-icon: #afb0b2 !default;
+// 辅助颜色 ( 信息提示 )
+$eguan-color-info: #c8c9cc !default;
+$eguan-color-reward: #ea824e !default;
+$eguan-color-active: #158def !default;
+$eguan-color-manager:#e58422 !default;
+$eguan-color-success:#27cc6c !default;
+$egaun-color-denger: #df3c2f !default;
+$eguan-color-del: #e54222 !default;
+// 中性色 ( 文本、边框、阴影等 )
+//标签
+$eguan-color-tag:#646566 !default;
+$eguan-color-tag-small: #7d7e80 !default;
+// 创建驿馆图标颜色
+$eguan-create-1: #eac864 !default;
+$eguan-create-2: #ef8686 !default;
+$eguan-create-3: #7cb7f2 !default;
+$eguan-create-4: #77dacd !default;
+$eguan-create-5: #9aa2f0 !default;
+$eguan-create-6: #efa0d8 !default;
+// 边框```
+$eguan-border-color-default: $eguan-color-border !default;
+$eguan-border-color-small: #f2f3f7 !default;
+$eguan-border-color-message: #e1e2e5 !default;
+$egaun-border-hard: #afb0b3 !default;
+$egaun-border-hard1: #e6b522 !default;
+$egaun-border-hard2: #e56322 !default;
+// background
+$eguan-background-white: $eguan-color-white !default;
+$eguan-background-tag: #e7ebee !default;
+$eguan-background-hover: #eff3f5 !default;
+$eguan-background-list: #f2f8fd !default;
+$eguan-background-body: #f1f5f9 !default;
+$eguan-background-menu: #f7f8fc !default;
+$eguan-background-postpone: #F9D8D5 !default;
+$eguan-background-pagenation: #e8eaed !default;
+$eguan-background-recharge: #ecf4ff !default;
+// 字体大小
+$eguan-font-default: 12px !default;
+//  阴影
+$eguan-shadow-light: 0 10px 25px rgba(0, 0, 0, 0.1) !default;
+// padding
+$eguan-padding6: 6px !default;
+$eguan-padding10: 10px !default;
+$eguan-padding15: 15px !default;
+$eguan-padding20: 20px !default;
+$eguan-padding30: 30px !default;
+$eguan-padding40: 40px !default;
+
+// border-raduis
+$eguan-border-raduis4: 4px !default;
+$eguan-border-raduis20: $eguan-padding20 !default;
+$eguan-border-raduis50: 50% !default;
+// margin
+$eguan-margin6: $eguan-padding6 !default;
+$eguan-margin10: $eguan-padding10 !default;
+$eguan-margin12: $eguan-font-default !default;
+$eguan-margin20: $eguan-padding20 !default;
+$eguan-margin30: $eguan-padding30 !default;
+$eguan-margin38: 38px !default;
+$eguan-margin40: $eguan-padding40 !default;
+$eguan-margin100: 100px !default;

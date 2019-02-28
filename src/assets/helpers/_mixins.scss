@@ -1,0 +1,28 @@
+@charset "utf-8";
+@import "./_var";
+@mixin df {
+    display: flex;
+    align-items: center;
+}
+@mixin dib {
+    display: inline-block;
+}
+@mixin db {
+    display:block;
+}
+@mixin box-shadow {
+    box-shadow: $eguan-shadow-light;
+}
+@mixin animate-2 {
+    transition: all 0.2s cubic-bezier(0.4, 0.01, 0.165, 0.99);
+}
+@mixin animate-4 {
+    transition: all 0.4s cubic-bezier(0.4, 0.01, 0.165, 0.99);
+}
+@mixin pointer {
+    cursor: pointer;
+}
+@mixin common-size($width, $height) {
+    width: $width;
+    height: $height;
+}

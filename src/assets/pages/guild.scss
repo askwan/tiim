@@ -1,0 +1,178 @@
+@charset "utf-8";
+@import "../helpers/_var";
+@import "../helpers/animate.scss";
+
+.guild-wrap {}
+
+// 门派成员角色管理
+.person-wrap {
+
+  .person-remove,
+  .person-role {
+    p {
+      line-height: 35px;
+    }
+
+    span {
+      color: $eguan-color-tag;
+    }
+  }
+
+  .person-remove {
+    .del-person {
+      margin-top: $eguan-margin10;
+      span {
+        @extend .animate-time2;
+        border: 1px solid $eguan-border-color-message;
+        padding: 7px $eguan-padding15;
+        border-radius: $eguan-border-raduis4;
+        &:hover {
+          color: $egaun-color-denger;
+          border: 1px solid $egaun-color-denger;
+        }
+      }
+    }
+  }
+
+  .person-role {
+    margin-top: ($eguan-margin10+$eguan-margin6);
+    .set-role {
+      margin: $eguan-margin12 0 $eguan-margin40;
+    }
+  }
+}
+
+// 门派设置
+.guild-set {
+  ul>li {
+    padding: ($eguan-margin20+$eguan-margin6) 0;
+    border-bottom: 1px solid $eguan-border-color-message;
+
+    .guild-icon {
+      width: 48px;
+      height: 48px;
+      line-height: 50px;
+      margin-right: ($eguan-margin10+$eguan-margin6);
+      vertical-align: bottom;
+      @include dib;
+      @extend .text-center;
+      border: 1px solid $eguan-border-color-message;
+      border-radius: $eguan-border-raduis4;
+      overflow: hidden;
+
+      .iconfont {
+        color: $eguan-color-copyright;
+      }
+
+      img {
+        max-width: 100%;
+        max-height: 100%;
+        vertical-align: middle;
+      }
+    }
+
+    >p {
+      margin-bottom: ($eguan-margin10+$eguan-margin6);
+    }
+
+    >span {
+      color: $eguan-color-tag;
+    }
+
+    .guild-name {
+      max-width: 68%;
+
+      .el-input__inner {
+        line-height: 50px;
+        height: 50px;
+      }
+    }
+
+    .move-guild {
+      margin-left: ($eguan-margin10+$eguan-margin6);
+    }
+
+    &:last-child {
+      border: none;
+    }
+  }
+}
+// 门派充值
+.recharge-number{
+  @include dib;
+  @extend .posi-re;
+  padding: $eguan-padding30;
+  border: 1px solid $eguan-border-color-message;
+  border-radius: $eguan-border-raduis4;
+  color: $eguan-color-tag;
+  margin-right: $eguan-margin20;
+  overflow: hidden;
+  font-family: element-icons !important;
+  &:hover,
+  &.active{
+    border: 1px solid $eguan-color-active;
+    background: $eguan-background-recharge;
+  }
+  &.active::after,
+  &.active::before{
+    @include db;
+    @extend .posi-ab;
+  }
+  &.active::after{
+    content: "\E611";
+    top: -2px;
+    right: 2px;
+    color: $eguan-color-white;
+    font-size: 14px;
+  }
+  &.active::before{
+    content: "";
+    width: 40px;
+    height: 40px;
+    background: #176de6;
+    top: -20px;
+    right: -20px;
+    transform: rotate(45deg);
+  }
+}
+// 邀请
+.invite-link{
+	height: 36px;
+	border-radius: 3px;
+  border: solid 1px #e1e2e5;
+  a{
+    display: block;
+  }
+  .address-link,
+  .copy{
+    line-height: 36px;
+  }
+  .address-box{
+    // overflow: hidden;
+  }
+  .address-link{
+    padding: 0 10px;
+    width: 100%;
+    border: none;
+    outline: none;
+    white-space: nowrap;
+  }
+  .copy{
+    border-left: 1px solid #e1e2e5;
+    user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -webkit-user-select: none;
+  }
+  .success-copy{
+    top: -20px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    opacity: 0;
+    color: $eguan-color-success;
+    &.animate-success{
+      animation:  updown .8s linear;
+    }
+  }
+}

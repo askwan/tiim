@@ -1,0 +1,24 @@
+@charset "utf-8";
+@import "../helpers/_var";
+.filter-box{
+    padding: $eguan-padding20 0;
+}
+.record-box{
+    display: block;
+    .record-num{
+        width: 42px;
+        height: 42px;
+        background-position: 0 -300px;
+    }
+    .record-content{
+        .record-type{
+            line-height: 24px;
+        }
+        span{
+            color: $eguan-color-tag;
+        }
+    }
+    .record-time{
+
+    }
+}

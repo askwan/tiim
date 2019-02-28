@@ -1,0 +1,295 @@
+@charset "utf-8";
+@import "../helpers/_var";
+@import "../helpers/_mixins";
+
+.trader-box {
+  // .add-trader-btn {
+  //   margin-right: $eguan-margin20;
+  // }
+
+  .trader-list-box {
+    margin: $eguan-margin20 0;
+  }
+
+  .list-lt {
+    margin-right: 8px;
+  }
+  .trader-cuser-box{
+    white-space: nowrap;
+  }
+  // 开始与截止时间
+  .trader-status0{
+    color: #e6a422;
+    margin-left: $eguan-margin10;
+  }
+  .trader-cuser-name,
+  .trader-time {
+    color: $eguan-color-tag;
+  }
+  // 操作
+  .trader-handle-btn{
+    right: 0;
+    top: 0;
+    padding: 3px 0;
+    .start-btn{
+      color: #158def;
+    }
+    .end-btn{
+      color: #e56322;
+    }
+  }
+  .trader-setting{
+    color: $eguan-color-tag;
+  }
+  // 帽子
+  .trader-hat {
+    top: -10px;
+    left: -3px;
+    width: 56px;
+    height: 30px;
+  }
+  .manage-name-box{
+    margin: 10px 0;
+    line-height: 20px;
+    height: 40px;
+  }
+  .trader-set-box {}
+
+  .trader-set-style {
+    margin-top: $eguan-margin20;
+    >p,
+    >span {
+      // line-height: 36px;
+      margin-bottom: 12px;
+      display: block;
+    }
+    >span {
+      color: $eguan-color-tag;
+    }
+    font{
+      color: $eguan-color-tag;
+      img{
+        margin: 0 4px;
+      }
+    }
+    .trader-total-bt{
+      color: #e56322;
+    }
+  }
+
+  .trader-set-style-end {
+    padding-top: $eguan-padding20;
+    margin-top: $eguan-margin20;
+    border-top: 1px solid $eguan-border-color-default;
+
+    .del-btn {
+
+      &.el-button:focus,
+      &.el-button:hover {
+        border-color: $eguan-color-del;
+        background: #fff6f6;
+      }
+
+      span {
+        color: $eguan-color-del;
+      }
+    }
+  }
+
+  .trader-common-style {
+    padding-bottom: $eguan-padding10;
+  }
+
+  // 商品
+  @at-root .goods-list {
+    ul {
+      li {
+        padding: $eguan-padding20 0;
+        border-bottom: 1px solid $eguan-border-color-default;
+
+        &.goods-box {
+          img {
+            margin-right: $eguan-margin10;
+          }
+
+          .goods-name {
+            line-height: 20px;
+          }
+          .exchange-goods{
+              margin-bottom: $eguan-margin6;
+          }
+
+          .goods-price {
+            color: $eguan-color-tag;
+            font {
+              color: $egaun-border-hard2;
+            }
+            .exchange-time{
+              color: $eguan-color-default;
+            }
+          }
+        }
+
+        .handle-btn {
+          right: 0;
+          top: 20px;
+          opacity: 0;
+
+          a {
+            color: $eguan-color-active;
+
+            &:hover {
+              color: #2ea1ff;
+            }
+
+            &:last-child {
+              &:hover {
+                color: $eguan-color-del;
+              }
+            }
+          }
+        }
+
+        &:last-child {
+          border: 0;
+        }
+
+        &:hover {
+          .handle-btn {
+            opacity: 1;
+          }
+        }
+      }
+    }
+  }
+  .trader-handle{
+    bottom: 0;
+    left: 30px;
+  }
+
+}
+// 神秘包裹
+.pagination-box{
+    padding-top: 30px;
+    color: $eguan-color-tag;
+    .package-box{
+        a{
+            background: #e8eaed;
+            padding: 5px;
+            border-radius: 50%;
+            margin-left: 6px;
+            &:active{
+                background: #f5f7fa;
+            }
+        }
+    }
+    .package-goods{
+        padding: 20px 0;
+        max-height: 620px;
+        overflow: hidden;
+        .goods-item-list{
+            img{
+                max-height: 100%;
+                width: 100%;
+            }
+            .goods-name-box{
+                height: 42px;
+            }
+            .gold-count-bt {
+              span{
+                display: inline-block;
+                max-width: 46px;
+                overflow: hidden;
+                text-overflow: ellipsis,
+              } 
+            }
+            @at-root .gold-count-bt{
+                background: linear-gradient(90deg,  #e56322 0%,  #ed773b 100%) !important;
+                color: #fff !important;
+                border-color: transparent;
+                &.is-disabled {
+                  border-color: transparent;
+                  background: #e1e2e5 !important;
+                  color: #969799 !important;
+                  &:hover{
+                    border-color: transparent;
+                  }
+                }
+                &:hover{
+                  border-color: transparent;
+                }
+            }
+        }
+    }
+}
+// 库存
+.goods-store{
+    bottom: 0;
+    right: 0;
+    padding: 2px 8px;
+    color: #fff;
+    font-size: 12px;
+    background: #646566;
+    &.exchange-btn{
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(255, 255, 255, 0.4); 
+      span{
+        display: block;
+        position: absolute;
+        background: linear-gradient(90deg, #e56322 0%,#ed763b 100%);
+        transform: translate(-50%,-50%);
+        border-radius: 50%;
+        top: 50%;
+        left: 50%;
+        height: 56px;
+        width: 56px;
+        line-height: 56px;
+        text-align: center;
+        font-size: 16px;
+        cursor: pointer;
+        user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        -webkit-user-select: none;
+      }
+    }
+    &.exchange-over{
+      span{
+        background: #969799;
+      }
+    }
+}
+.price-unit{
+  font-weight: normal;
+}
+.staff-list-item{
+  .user-name{
+    b{
+      vertical-align: middle;
+    }
+  }
+  .trader-cosplay{
+    font-weight: 500;
+    display: inline-block;
+    max-width: 50%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: text-bottom;
+
+  }
+  .goods-store{
+    opacity: 0;
+    a{
+      color: white;
+    }
+}
+&:hover{
+    .goods-store{
+      opacity: 1;
+    }
+  }
+}

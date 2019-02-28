@@ -50,32 +50,13 @@ export default {
       });
 
     },
-    formateDate(list){
-      let weeks = {
-        label:'周目标',
-        timing:1
-      };
-      let months = {
-        label:'月目标',
-        timing:2
-      };
-      let quarters = {
-        label:'季目标',
-        timing:3
-      };
-      let years = {
-        label:'年目标',
-        timing:4
-      };
-      weeks.data = list.filter(el=>el.timing == 1);
-      months.data = list.filter(el=>el.timing == 2);
-      quarters.data = list.filter(el=>el.timing == 3);
-      years.data = list.filter(el=>el.timing == 4);
-
-      return [years,quarters,months,weeks];
-    },
     button(){
-      timeline.zoomTo(new Date(2019,6,4));
+      axios.get('./eg.json').then(res=>{
+        // console.log(res.data.data,'res');
+        timeline.reset(res.data.data.list);
+      })
+      // timeline.zoomTo(new Date(2019,6,4));
+      // timeline.resetData()
     }
   }
 };

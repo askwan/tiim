@@ -1,0 +1,287 @@
+@charset "utf-8";
+@import "./_var";
+html,
+body {
+  font-family: -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", SimSun, sans-serif;
+  font-size: 14px;
+  line-height: 1.42858;
+  color: $eguan-color-default;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: 100%;
+  margin: 0;
+  font-weight: 400;
+}
+
+html,
+body,
+form,
+ul,
+ol,
+dl,
+dd,
+p {
+  margin: 0;
+}
+
+ul,
+li,
+ol {
+  list-style-type: none;
+  padding: 0;
+}
+
+ul{
+  font-size: 0;
+  li{
+    font-size: 14px;
+  }
+}
+img {
+  border: 0 none;
+  vertical-align: bottom;
+  border-radius: 3px;
+}
+
+button,
+input,
+select,
+textarea {
+  font-size: 1em;
+  font-family: inherit;
+}
+
+a,
+a:hover {
+  text-decoration: none;
+}
+
+a {
+  color: $eguan-color-default;
+}
+
+// 滚动条
+/*chrome */
+
+::-webkit-scrollbar-track-piece {
+  width: 5px;
+  background-color: #ededed;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+  background-color: #ededed;
+}
+
+::-webkit-scrollbar-thumb {
+  width: 5px;
+  border-radius: 10px;
+  background-color: #ccc;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  width: 5px;
+  background-color: #b3b3b3;
+}
+
+// element 样式重置
+// 导航栏
+.el-menu--horizontal>.el-menu-item {
+  border: 0;
+}
+
+.el-dropdown-menu__item--divided:before,
+.el-menu,
+.el-menu--horizontal>.el-menu-item:not(.is-disabled):focus,
+.el-menu--horizontal>.el-menu-item:not(.is-disabled):hover,
+.el-menu--horizontal>.el-submenu .el-submenu__title:hover,
+.el-menu--horizontal>.el-menu-item:not(.is-disabled):hover,
+.el-menu,
+  {
+  background: transparent;
+}
+
+.el-menu--horizontal .el-menu-item:not(.is-disabled):focus,
+.el-menu--horizontal .el-menu-item:not(.is-disabled):hover,
+.el-menu--horizontal>.el-menu-item.is-active {
+  border: none;
+  color: #158def;
+}
+
+// 卡片
+.eguan-list-item {
+  .list-item {
+    .el-card {
+      background: $eguan-background-list;
+    }
+  }
+}
+
+// 上传的图片
+.upload-box {
+  .el-icon-plus {
+    font-size: 22px;
+  }
+  .el-upload-list--picture-card .el-upload-list__item-status-label {
+    .el-icon-upload-success {
+      vertical-align: top;
+    }
+  }
+}
+.el-button{
+  transition: 0ms;
+}
+// 富文本编辑器样式
+.simditor .simditor-body, .editor-style{
+  min-height: 200px;
+  width: 100%;
+}
+// .simditor .simditor-body > :first-child, .editor-style > :first-child{
+//   padding: 22px 15px;
+// }
+.simditor_wrap{
+  margin: 15px 0;
+  .simditor{
+    .simditor-toolbar{
+      ul{
+        li{
+          .toolbar-item{
+            width: 30px;
+            height: 30px;
+            color: #555555;
+            font-size: 14px;
+            line-height: 30px;
+          }
+        }
+      }
+    }
+  }
+}
+.simditor .simditor-body{
+  &.reset-simditor{
+    min-height: auto;
+    overflow: hidden;
+    padding: 0;
+    margin-bottom: $eguan-margin10;
+  }
+} 
+.simditor .reset-simditor > :first-child, .editor-style > :first-child{
+  padding: 0;
+} 
+// 工作台完成的任务
+.task-finish-list{
+  display: inline-block;
+  margin-left: 26%;
+  width: 74%;
+  padding: 6px 0;
+  border-bottom: 1px solid $eguan-border-color-default;
+  &:last-child{
+    border-bottom: transparent;
+  }
+}
+.task-finish-box{
+  margin-top: -26px;
+}
+.el-dialog__footer{
+  border-top: 1px solid $eguan-border-color-default;
+  margin: 0 $eguan-margin20;
+  padding:$eguan-padding30 0;
+  .message-box{
+    flex: 1;
+    margin: 0 0 0 $eguan-margin10;
+  }
+}
+.result-box{
+  .el-checkbox__input.is-disabled.is-checked .el-checkbox__inner::after{
+    border-color: $eguan-color-white;
+  }
+}
+// 下拉第一个清楚样式
+html .reset-style{
+  .bt-history{
+    color: #606266;
+    margin-left: 10px;
+  }
+  &:hover{
+    background-color: #fff !important;
+    color: #606266 !important;
+    .bt-history{
+      &:hover{
+        color: #158def !important;
+      }
+    }
+  }
+}
+// 发布悬赏里面的 指派人员
+.eguan-form{
+  .el-button--info{
+    color: #646566 !important;
+    background: transparent !important;
+    border: none !important;
+    &:hover{
+      color: #969696 !important;
+    }
+  }
+  .assign-style-tag{
+    background-color: $eguan-color-white;
+    border-color: $eguan-border-color-message;
+    color: $eguan-color-default;
+    margin: 0 $eguan-margin10 $eguan-margin10 0;
+    .el-tag__close{
+      color: $eguan-color-copyright !important;
+      &:hover{
+        color: $eguan-color-white !important;
+      }
+    }
+    .el-tag__close{
+      color: $eguan-color-white;
+    }
+  }
+} 
+// 包裹弹出框
+.reset-goods-wrap{
+  .el-dialog__header,
+  .el-dialog__footer{
+    border: none !important;
+  }
+  .el-dialog__header
+  {
+    padding: 0;
+  }
+  .el-dialog--center .el-dialog__body{
+    padding: 20px;
+  }
+  .el-dialog__footer{
+    padding-top: 0;
+  }
+}
+// 显示x
+.show-x{
+  .el-dialog{
+    width: 500px;
+    .el-dialog__title{
+      font-size: 16px;
+    }
+    .el-icon-close{
+      opacity: 1;
+    }
+  }
+}
+// 发布悬赏富文本
+.default-color{
+  margin-top: 4px;
+  li{
+    color: #999 !important;
+    padding: 0 !important;
+  }
+}
+// element 默认边框样式
+:focus{
+  outline: none !important;
+}

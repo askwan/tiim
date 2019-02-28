@@ -1,7 +1,15 @@
 // const url = 'http://bt1.geosts.ac.cn/api/image/75a36eceed9d7be579adab4f50f6ff45';
 import UiUser from './user'
+import {transition as d3_transition} from 'd3-transition'
 export default context => {
   return target =>{
+    const getStringLength = (reg,str)=>{
+      // let reg = /\d/g;
+      return str.match(reg).length;
+    }
+    const animate = ()=>{
+      return d3_transition().duration(750);
+    }
     const update = ()=>{
 
       let titleBg = target.selectAll('.target-title-bg').data(d=>[d]);
@@ -15,7 +23,9 @@ export default context => {
         .attr('rx',radius)
         .attr('ry',radius)
         .attr('width',d=>{
-          return d.label.length*(fontSize-2)+4
+          let numLength = getStringLength(/\d/g,d.label);
+          let letterLength = getStringLength(/[a-zA-Z]/g,d.label);
+          return numLength*(fontSize-4)+letterLength*fontSize
         })
         .attr('height',16)
         .attr('fill','rgb(21,141,239)')
@@ -36,10 +46,12 @@ export default context => {
         .attr('fill','#fff')
         .text(d=>d.label)
         .merge(icon)
+        // .transition(animate())
         .attr('x',d=>{
           let width = context.getWidth(d);
           return -width+padding+2
         })
+        
         
       icon.exit().remove();
 
@@ -53,7 +65,9 @@ export default context => {
         .merge(titleText)
         .attr('x',d=>{
           let width = context.getWidth(d);
-          return -width+padding+d.label.length*(fontSize-2)+8
+          let numLength = getStringLength(/\d/g,d.label);
+          let letterLength = getStringLength(/[a-zA-Z]/g,d.label);
+          return -width+padding+numLength*(fontSize-4)+letterLength*fontSize+4
         })
         .text(d=>{
           // console.log(d,'ddd')
@@ -63,7 +77,7 @@ export default context => {
           if(width==context.config.smallWidth){
             if(str.length>2) str = str.slice(0,2)+'...';
           }else if(width == context.config.bigWidth){
-            if(str.length>13) str = str.slice(0,13)+'...';
+            if(str.length>12) str = str.slice(0,12)+'...';
           }
           return str;
         });

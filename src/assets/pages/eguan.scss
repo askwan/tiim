@@ -1,0 +1,217 @@
+@charset "utf-8";
+@import "../helpers/_var";
+@import "../helpers/_mixins";
+@import "../helpers/_function";
+
+.native-wrap{
+    // 头部
+    .native-logo,
+    .native-menu,
+    .native-user{
+        line-height: 60px;
+    }
+    .native-logo{
+        img{
+            vertical-align: middle;
+        }
+    }
+    .eguan-heard .eguan-menu .eguan-menu-box li{
+        color: $eguan-color-default;
+    }
+    // 统一样式
+    .eguan-btn{
+        border: none;
+        outline: none;
+        background: $eguan-color-white;
+        padding: 19px 66px;
+        color: #158def;
+        cursor: pointer;
+        border-radius: 8px;
+    }
+    .produce-common-show-box{
+        height: 410px;
+        .common-show-box-circle{
+            height: 30px;
+            text-indent: 20px;
+            line-height: 30px;
+            background: #e5e8eb;
+            border-radius: 8px 8px 0 0;
+            span{
+                display: inline-block;
+                width: 12px;
+                height: 12px;
+                border-radius: 50%;
+                background: #c3c8cc;
+                margin-right: 8px;
+            }
+        }
+        .common-show-content{
+            border: 20px solid #f1f5f9;
+            height: 340px;
+            overflow: hidden;
+            border-radius: 0 0 8px 8px;
+            .eguan-page-animate{
+                height: 100%;
+                position: relative;
+                img{
+                    max-width: 90%;
+                    position: absolute;
+                    left: 50%;
+                    top: 50%;
+                    transform: translate(-50%,-50%);
+                }
+            }
+        }
+    }
+    // 产品
+    .produce-wrap{
+        .produce-title{
+            height: 100%;
+            background-size: 100% 100%;
+            min-width: 960px;
+        }
+        .produce-title-tip{
+            color: $eguan-color-white;
+            h1{
+                font-size: 48px;
+                padding: 184px 0 40px 0;
+            }
+        }
+        .produce-tool{
+            height: 218px;
+            top: 50px;
+            .produce-animate{
+                animation: eguna-updown infinite;
+            }
+            .produce-tool4,
+            .produce-tool2{
+                margin-top: 86px;  
+            }
+            .produce-tool3{
+                margin-top: 140px; 
+            }
+            .produce-tool1{
+                animation-duration: 4.4s;
+            }   
+            .produce-tool2{
+                animation-duration: 4.2s;                
+            }
+            .produce-tool3{
+                animation-duration: 4.3s;
+            }
+            .produce-tool4{
+                animation-duration: 4.6s;
+            }
+            .produce-tool5{
+                animation-duration: 4.5s;
+            }
+        }
+        .produce-dd-login{
+            top: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .produce-what{
+            height: 396px;
+            .produce-what-box{
+                >p{
+                    margin: 50px 0;
+                }
+                background: $eguan-color-white;
+                top: 100px;
+                left: 0;
+                bottom: -220px;
+                right: 0;
+                box-shadow: 0px 6px 52px 0px  rgba(21, 141, 239, 0.3);
+                border-radius: 8px;
+                .produce-mark-image-box{
+                    width: 160px;
+                    height: 160px;
+                    box-shadow: 0px 0px 8px 0px  rgba(21, 141, 239, 0.3);
+                    border-radius: 50%;
+                    margin: auto;
+                    .produce-image{
+                        top: 50%;
+                        left: 50%;
+                        transform: translate(-50%,-50%);
+                        position: absolute;
+                    }
+                }
+                .common-produce-box{
+                    width: 220px;
+                    margin: 0 auto;
+                    p{
+                        margin: 26px 0 10px 0;
+                    }
+                    span{
+                        color: $eguan-color-tag;
+                        line-height: 30px;
+                    }
+                }
+            }
+        }
+        .produce-page-box{
+            margin-top: 280px;
+            .produce-page{
+                .page-title{
+                    >p{
+                        line-height: 48px;
+                    }
+                    >h6{
+                        color: $eguan-color-tag;
+                    }
+                    .page-mark{
+                        display: block;
+                        top: 0;
+                        left: 0;
+                        right: 0;
+                        bottom: 0;
+                        padding: 0 70px;
+                        font-size: 150px;
+                        line-height: 100px;
+                        color: #158def;
+                        opacity: 0.1;
+                        font-family: "MicrosoftYaHei-Bold";
+                    }
+                }
+                .produce-page-content{
+                    margin: 70px 0 100px 0;
+                    ul{
+                        li{
+                            a{
+                                line-height: 40px;
+                            }
+                            span{
+                                color: $eguan-color-tag;
+                                display: block;
+                                line-height: 22px;
+                                padding-bottom: 14px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        .produce-eguan-des{
+            height: 500px;
+            background-size: 100% 120%;
+            background-repeat: no-repeat;
+            min-width: 960px;
+            .produce-des-box{
+                padding-top: 130px;
+            }
+            .dd-login-btn{
+                margin-top: 78px;
+            }
+            .produce-des-title{
+                color: $eguan-color-white;
+                line-height: 50px;
+            }
+        }
+    }
+}
+.nativeBg{
+    .el-popover{
+        padding: 2px;
+    }
+}
