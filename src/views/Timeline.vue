@@ -36,7 +36,8 @@ export default {
         container:'#timeline',
         // groupHeight:200,
         // targetHeight:80,
-        data:list
+        data:list,
+        posiDate:new Date(2018,6,1)
       };
       timeline = new Timeline(options,()=>{
         console.log('ready')
@@ -51,11 +52,11 @@ export default {
 
     },
     button(){
-      axios.get('./eg.json').then(res=>{
-        // console.log(res.data.data,'res');
-        timeline.reset(res.data.data.list);
-      })
-      // timeline.zoomTo(new Date(2019,6,4));
+      // axios.get('./eg.json').then(res=>{
+      //   // console.log(res.data.data,'res');
+      //   timeline.reset(res.data.data.list);
+      // })
+      timeline.zoomTo(new Date(2019,1,1));
       // timeline.resetData()
     }
   }

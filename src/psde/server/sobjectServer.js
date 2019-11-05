@@ -1,9 +1,11 @@
 import Base from './Base'
-import Sobject from '../Sobject'
+// import Sobject from '../Sobject'
+import Sobject from '../Sobject/Sobject'
 class ObjectServer extends Base {
-  constructor(url){
+  constructor(option){
     super();
-    this.url = url+'object'
+    this.url = option.url+'object';
+    this.name = 'sobject';
   }
   query(option={}){
     option = Object.assign({},option);
@@ -58,9 +60,24 @@ class ObjectServer extends Base {
       ids:sobjectId,
       geoEdit:true,
       loadNetwork:true,
-      loadCompose:true
+      loadCompose:true,
+      loadObjType:true
     };
     return this.query(option)
+  }
+  queryByBBox(bbox,boolean=true){
+    let bboxStr = `BBOX(${bbox.minx} ${bbox.maxx} ${bbox.miny} ${bbox.maxy})`;
+    let option = {
+      geoWkt:bboxStr,
+      loadForm:true,
+      geoEdit:boolean,
+      loadNetwork:true,
+      sdomains:this.getsdomains()
+    }
+    return this.query(option)
+  }
+  getsdomains(){
+    return 6454047162368
   }
 }
 

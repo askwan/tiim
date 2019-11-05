@@ -32,17 +32,19 @@ export default context => {
 
       complateRect.enter().append('rect')
         .classed('complate-rect',true)
-        .attr('fill','rgb(21,141,239)')
-        .attr('width',50)
         .attr('height',4)
         .merge(complateRect)
+        .attr('fill',d=>d.color)
+        .attr('width',d=>{
+          return context.getWidth(d)*d.targetProgress
+        })
 
       complateRect.exit().remove();
 
       progressGroup.exit().remove();
     }
     update();
-    // context.on('change',()=>{
+    // context.on('reset',()=>{
     //   update();
     // })
   }

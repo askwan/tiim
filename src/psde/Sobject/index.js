@@ -1,4 +1,4 @@
-import Action from './Action'
+import Action from '../Action/Actions'
 export default class Sobject {
   constructor(obj){
     this.srs = {};

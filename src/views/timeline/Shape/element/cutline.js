@@ -5,7 +5,7 @@ export default context => {
     let group = context.state.list;
     let verticalLineGroup = g.append('g')
       
-    verticalLineGroup.append('line')
+    let lineVertical = verticalLineGroup.append('line')
       .classed('y',true)
       .attr('x1',context.config.groupWidth)
       .attr('y1',0)
@@ -13,7 +13,7 @@ export default context => {
       .attr('y2',context.config.boxHeight)
       
     let clipGroup = context.group.append('g')
-      .attr('clip-path', 'url(#cutline-content)')
+      // .attr('clip-path', 'url(#cutline-content)')
 
     let cutLineGroup = clipGroup
       .append('g')
@@ -26,8 +26,8 @@ export default context => {
         lines.enter().append('line')
           .classed('cutline',true)
           .attr('x1',0)
-          .attr('x2',context.config.width)
           .merge(lines)
+          .attr('x2',context.config.width)
           .attr('y1',(d)=>context.getGroupY(d.timing))
           .attr("y2",(d)=>context.getGroupY(d.timing))
 
@@ -45,7 +45,9 @@ export default context => {
     update();
 
     context.on('change',()=>{
-      // console.log('updateline')
+      update();
+    });
+    context.on('update',()=>{
       update();
     });
     context.on('scrollEvent',data=>{
@@ -53,6 +55,13 @@ export default context => {
       // cutLineGroup.attr('transform',t)
       cutLineGroup.attr('transform',`translate(0,${y})`)
       // let transform = d3_zoomTransform(cutLineGroup.node());
+    })
+    context.on('reset',()=>{
+      // console.log(context.config.boxHeight,'width')
+      lineVertical
+        .attr('y1',0)
+        .attr('y2',context.config.boxHeight)
+      
     })
 
 

@@ -4,12 +4,12 @@ import UiCircle from './circle'
 import UilineGroup from './lineGroup'
 import UiShade from './shade'
 import UiProgress from './progress'
-import {drag as d3_drag} from 'd3-drag'
-export default context => {
+import UiBorder from './borderLine'
+import {drag as d3_drag} from 'd3-drag';
 
+export default context => {
   const dragMove = ()=>{
-    let drag = d3_drag();
-    return drag;
+    return d3_drag()
   }
   return g => {
     let clipG = g.append('g').classed('clip-g',true)
@@ -82,6 +82,7 @@ export default context => {
       updateCopyGroup.call(UiTitle(context));
       updateCopyGroup.call(UiShade(context));
       updateCopyGroup.call(UiProgress(context));
+      updateCopyGroup.call(UiBorder(context));
 
       copyGroup.exit().remove()
 
@@ -104,7 +105,9 @@ export default context => {
     });
     context.on('scrollEvent',data=>{
       targetGroup.attr('transform',`translate(0,${-data.y})`);
-      // targetGroup.transition().duration(750).attr('transform',`translate(0,${-data.y})`);
+    });
+    context.on('update',()=>{
+      update();
     })
 
   }

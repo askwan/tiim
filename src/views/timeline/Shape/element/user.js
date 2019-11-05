@@ -14,7 +14,7 @@ export default context => {
       .merge(userGroup)
       .attr('transform',d=>{
         let width = context.getWidth(d);
-        return `translate(${padding-width+60},${padding/2+targetHeight/2-2})`
+        return `translate(${padding-width+66},${padding/2+targetHeight/2-2})`
       })
     let userGroupImage = updateUserGroup.selectAll('.target-user-image').data(d=>{
       let width = context.getWidth(d);
@@ -34,12 +34,10 @@ export default context => {
       .attr('x',(d,i)=>i*24)
       .attr('rx',10)
       .attr('ry',10)
-      .attr('fill',d=>`url(#img-${d.id})`)
       .on('mouseover',context.userTip.show)
       .on('mouseout',context.userTip.hide)
       .merge(userGroupImage)
-    
-    
+      .attr('fill',d=>`url(#img-${d.id})`)
 
     userGroupImage.exit().remove();
     userGroup.exit().remove();

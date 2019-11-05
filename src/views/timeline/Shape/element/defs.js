@@ -1,4 +1,3 @@
-
 const url = 'http://bt1.geosts.ac.cn/api/image/';
 export default context => {
   return group => {
@@ -25,7 +24,7 @@ export default context => {
       .attr('x', 0)
       .attr('y', 20)
       .attr('height', context.config.boxHeight)
-      .attr('width', context.config.width);
+      .attr('width', context.config.width - context.config.groupWidth);
 
     let pattern = defs.selectAll('.pattern-radius').data(list);
     pattern.enter().append('pattern')
@@ -36,6 +35,7 @@ export default context => {
       .attr('height',20)
       .append('image')
       .attr('xlink:href',d=>{
+        // return 'http://bt1.geosts.ac.cn/api/image/ea3e0180a17dcd7cce2496698a7072a9'
         return d.avatar ? url+d.avatar :url+'69e40dcf53cd73f2dfdd6f56d86f3f99'
       })
       .attr('width',20)
@@ -67,13 +67,16 @@ export default context => {
         .attr("in2", "blurOut")
         .attr("mode", "normal");
 
-    context.on('reset',()=>{
-      chart.attr('height', context.config.boxHeight)
-        .attr('width', context.config.width);
-
-      culine.attr('height', context.config.boxHeight)
-        .attr('width', context.config.width);
-    })
+      context.on('reset',()=>{
+        chart.attr('height', context.config.boxHeight)
+          .attr('width', context.config.width);
+  
+        culine.attr('height', context.config.boxHeight)
+          .attr('width', context.config.width);
+      })
+      // context.on('reset',()=>{
+      //   re
+      // })
 
   }
 }

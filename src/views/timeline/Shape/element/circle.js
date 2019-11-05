@@ -8,7 +8,7 @@ export default context => {
         .attr('cx',0)
         .attr('r',5)
         .attr('cy',0)
-        .attr('fill','#e65c8a')
+        .attr('fill',d=>d.color)
         .on('mouseover',d=>{
           console.log('over')
         })

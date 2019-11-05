@@ -42,7 +42,7 @@ export default class Target {
         context.state.currentTarget = d;
         context.fire('select',{data:d})
       })
-    updateTarget.call(UilineGroup(context));  
+    // updateTarget.call(UilineGroup(context));  
     updateTarget.call(UiCircle(context));
 
     let copyGroup = updateTarget.selectAll('.copy-group').data(d=>[d]);
@@ -73,6 +73,7 @@ export default class Target {
     updateCopyGroup.call(UiTitle(context));
     updateCopyGroup.call(UiShade(context));
     updateCopyGroup.call(UiProgress(context));
+    updateCopyGroup.call(UilineGroup(context));
 
     copyGroup.exit().remove()
     

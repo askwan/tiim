@@ -1,18 +1,20 @@
 import {select as d3_select} from 'd3-selection';
-import {min as d3_min,max as d3_max} from 'd3-array';
+// import {min as d3_min,max as d3_max} from 'd3-array';
+import {transition as d3_transition} from 'd3-transition'
 import './style.scss';
 import Evented from './utils/Evented'
 
-import Target from './Shape/Target'
+// import Target from './Shape/Target'
 
 import UiCutline from './Shape/element/cutline'
 import UiDefs from './Shape/element/defs'
 import UiXAxis from './Shape/element/axisX'
-import UiScrollBar from './Shape/element/scrollBar'
+// import UiScrollBar from './Shape/element/scrollBar'
 import UiTip from './Shape/element/tip'
 import UiTarget from './Shape/element/target'
 import UiLineGroup from './Shape/element/lineGroup'
-import lineGroup from './Shape/element/lineGroup';
+// import lineGroup from './Shape/element/lineGroup';
+import UicurrentTime from './Shape/element/currentTime'
 
 export default class TimeLine extends Evented {
   constructor(option,callback){
@@ -30,12 +32,14 @@ export default class TimeLine extends Evented {
       gap:20,
       tick:10,
       bigWidth:260,
-      smallWidth:120,
-      xbottom:false
+      smallWidth:130,
+      xbottom:false,
+      domain:[new Date(2018,1,1),new Date(2018,12,31)],
+      posiDate:new Date(2018,1,1)
     };
     this.state = {
       totalHegiht:20,
-      domain:[new Date(2018,10,1),new Date(2019,8,31)],
+      domain:option.domain,
       transform:{k:0,x:0,y:0},
       status:'bbms',
       currentY:0,
@@ -57,30 +61,31 @@ export default class TimeLine extends Evented {
     this.config.width = container.node().clientWidth;
     this.config.height =  this.state.totalHegiht;
     this.config.boxHeight = container.node().clientHeight;
-    let svg = container.append('svg')
+    this.svg = container.append('svg')
       .classed('time-svg',true)
-    svg.call(UiDefs(this));
-    svg.call(UiXAxis(this));
+    this.svg.call(UiDefs(this));
+    this.svg.call(UiXAxis(this));
     
-
+    
     this.state.list = this.setData(this.config.data);
     // let min = d3_min(this.state.list,d=>d.etime);
     // let max = d3_max(this.state.list,d=>d.etime);
     // this.state.domain = [min,max];
 
-    svg.attr('width',this.config.width)
+    this.svg.attr('width',this.config.width)
       .attr('height',this.config.boxHeight);
 
     
     
-    svg.call(UiTip(this));
-
-    this.group.call(UiCutline(this))
+      
     let clipGroup = this.group.append('g').classed('clip-group',true)
-    .attr('clip-path', 'url(#chart-content)');
-    // this.createTarget(this.state.list);
+      .attr('clip-path', 'url(#chart-content)');
+    this.group.call(UiCutline(this));
+    this.svg.call(UiTip(this));
+    this.group.call(UicurrentTime(this));
     this.group.call(UiTarget(this));
     clipGroup.call(UiLineGroup(this));
+    this.zoomTo(this.config.posiDate)
   }
   addShapes(shapes){
     shapes.forEach(shape=>{
@@ -88,27 +93,33 @@ export default class TimeLine extends Evented {
     })
   }
   setData(list){
+    list = JSON.parse(JSON.stringify(list));
     let lists = this.calcList(list,this._x);
     return lists;
   }
   resetData(list){
+    // console.log(list.length)
     let fn = this._t || this._x;
+    list = JSON.parse(JSON.stringify(list));
     this.state.list = this.calcList(list,fn);
     this.config.data = list;
-    this.fire('change');
-    this.fire('scrollEvent',{y:0})
+    this.fire('update');
+    // this.fire('change',{domain:fn.domain()});
   }
   reset(list){
     let fn = this._t || this._x;
+    list = JSON.parse(JSON.stringify(list));
     this.state.list = this.calcList(list,fn);
     this.config.data = list;
     let container = d3_select(this.config.container);
     this.config.width = container.node().clientWidth;
     this.config.height =  this.state.totalHegiht;
     this.config.boxHeight = container.node().clientHeight;
-    this.fire('change');
+    this.fire('change',{domain:fn.domain()});
     this.fire('scrollEvent',{y:0});
     this.fire('reset');
+    this.svg.attr('width',this.config.width)
+      .attr('height',this.config.boxHeight);
   }
   createTarget(results){
     for(let name in this.shapes){
@@ -161,11 +172,12 @@ export default class TimeLine extends Evented {
     this.fire('changeY',{y});
   }
   calcList(list,fn,gap=-5){
+    
     let weeks = {
       label:'周目标',
       timing:1,
-      datas:{},
-      lineHeight:100
+      lineHeight:100,
+      datas:{}
     };
     let months = {
       label:'月目标',
@@ -207,10 +219,11 @@ export default class TimeLine extends Evented {
     // console.log(quarters);
     // console.log(months);
     // console.log(weeks);
+    this.state.totalHegiht = years.lineHeight+quarters.lineHeight+months.lineHeight+weeks.lineHeight;
     return [years,quarters,months,weeks];
   }
   adjustObj(list,el,flag,fn,width,gap=20,collcetion){
-    let _width = width;
+    let _width = width*2;
     let keys = Object.keys(collcetion.datas);
     let aimKey = keys.find(key=>{
       return Math.abs(fn(el.date)-fn(new Date(key)))<=_width+gap;
@@ -227,6 +240,9 @@ export default class TimeLine extends Evented {
     }
     collcetion.width = width;
     collcetion.lineHeight = this.calcLineHeight(collcetion);
+    for(let key in collcetion.datas){
+      collcetion.datas[key] = collcetion.datas[key].sort((a,b)=>a.date-b.date);
+    }
     return collcetion;
 
   }
@@ -241,7 +257,9 @@ export default class TimeLine extends Evented {
       maxNum = list.length>maxNum?list.length:maxNum;
     }
     let height = maxNum*(h+gap)+gap;
-    height = height>this.config.groupHeight?height:this.config.groupHeight;
+    height = Math.max(height,this.config.groupHeight);
+    // height = height>this.config
+    // console.log(height,'heigt')
     return height;
   }
   getGroupY(flag){
@@ -253,13 +271,20 @@ export default class TimeLine extends Evented {
     if(flag==4){
       height = this.config.bottom;
     }else if(flag==3){
-      height = this.config.bottom+yearsH;
+      let h = this.config.bottom+yearsH;
+      height = h
     }else if(flag==2){
-      height = this.config.bottom+yearsH+quartersH;
+      let h = this.config.bottom+yearsH+quartersH
+      height = h
     }else if(flag==1){
-      height = this.config.bottom+yearsH+quartersH+monthsH;
-    }
+      let h = this.config.bottom+yearsH+quartersH+monthsH;
+      height = h
+    };
+    // height = height>=this.config.groupHeight?height:this.config.groupHeight;
     return height
+  }
+  animate(){
+    return d3_transition().duration(750);
   }
   
 }

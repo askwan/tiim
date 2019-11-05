@@ -1,12 +1,19 @@
-import SobjectServer from './server/sobjectServer'
+import SobjectServer from './server/SobjectServer';
+import OtypeServer from './server/OtypeServer'
 import config from './config'
 class Psde {
   constructor(base={}){
-    this.url = base.url?base.url:config.psdeUrl;
+    let url = base.url?base.url:config.psdeUrl;
+    this.state = {
+      cache:[],
+      url:url
+    };
+    Object.assign(this.state,base)
     this.init();
   }
   init(){
-    this.objectServer = new SobjectServer(this.url);
+    this.objectServer = new SobjectServer(this.state);
+    this.otypeServer = new OtypeServer(this.state);
   }
   
 }

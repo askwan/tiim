@@ -1,14 +1,10 @@
 // const url = 'http://bt1.geosts.ac.cn/api/image/75a36eceed9d7be579adab4f50f6ff45';
 import UiUser from './user'
-import {transition as d3_transition} from 'd3-transition'
 export default context => {
   return target =>{
     const getStringLength = (reg,str)=>{
       // let reg = /\d/g;
       return str.match(reg).length;
-    }
-    const animate = ()=>{
-      return d3_transition().duration(750);
     }
     const update = ()=>{
 
@@ -25,11 +21,12 @@ export default context => {
         .attr('width',d=>{
           let numLength = getStringLength(/\d/g,d.label);
           let letterLength = getStringLength(/[a-zA-Z]/g,d.label);
-          return numLength*(fontSize-4)+letterLength*fontSize
+          return numLength*(fontSize-5)+letterLength*fontSize
         })
         .attr('height',16)
-        .attr('fill','rgb(21,141,239)')
         .merge(titleBg)
+        // .transition(context.animate())
+        .attr('fill',d=>d.color)
         .attr('x',d=>{
           let width = context.getWidth(d);
           return padding - width;
@@ -46,12 +43,10 @@ export default context => {
         .attr('fill','#fff')
         .text(d=>d.label)
         .merge(icon)
-        // .transition(animate())
         .attr('x',d=>{
           let width = context.getWidth(d);
           return -width+padding+2
         })
-        
         
       icon.exit().remove();
 
@@ -74,6 +69,10 @@ export default context => {
           let str = d.name.replace(d.label,'').trim();
           let width = context.getWidth(d);
           // console.log(width==context.config.smallWidth,'width');
+          // let numLength = getStringLength(/\d/g,d.label);
+          // let letterLength = getStringLength(/[a-zA-Z]/g,d.label);
+          // let front = numLength*(fontSize-5)+letterLength*fontSize;
+          // console.log(context.config.smallWidth-front-20)
           if(width==context.config.smallWidth){
             if(str.length>2) str = str.slice(0,2)+'...';
           }else if(width == context.config.bigWidth){
@@ -87,7 +86,7 @@ export default context => {
       partnerIcon.enter().append('image')
         .classed('target-partner-icon',true)
         .classed('animate',true)
-        .attr('xlink:href','/person-icon.png')
+        .attr('xlink:href','static/image/users.png')
         .attr('width',16)
         .attr('height',16)
         .attr('y',padding/2+context.config.targetHeight/2)

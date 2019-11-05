@@ -57,4 +57,8 @@ export default class Base {
   getToken(){
     return localStorage.getItem('token') || ''
   }
+  cacheStatus(list){
+    let result = list.find(el=>el===this.name);
+    return Boolean(result);
+  }
 }
